@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "473585103382",
+    "project_id": "fir-rpg-d7a46",
+    "storage_bucket": "fir-rpg-d7a46.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:473585103382:android:a50bc49d74079b3541fb37",
+        "android_client_info": {
+          "package_name": "com.example.demo_rpg"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA80z9pp-SvSXozoCyb3Xm_1TF1DnY0y_U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
