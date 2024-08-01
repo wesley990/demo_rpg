@@ -16,13 +16,17 @@ class HomeScreen extends StatelessWidget {
             snap: true,
             floating: true,
             expandedHeight: 50.0,
+            // leading: IconButton(
+            //   icon: const Icon(Icons.menu),
+            //   onPressed: () {},
+            // ),
             flexibleSpace: FlexibleSpaceBar(
               title: const Text(
                 '角色',
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
               background: Image.network(
-                'https://picsum.photos/id/46/300/500',
+                'https://picsum.photos/id/52/400/700',
                 fit: BoxFit.cover,
               ),
             ),
@@ -33,7 +37,7 @@ class HomeScreen extends StatelessWidget {
             // ],
           ),
           const SliverToBoxAdapter(
-            child: Text('TEST'),
+            child: Placeholder(),
           ),
         ],
       ),
