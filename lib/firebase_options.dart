@@ -41,48 +41,47 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyA3a36qmUOKm5ffZ986qzKiwjTu4KF2Frs',
-    appId: '1:473585103382:web:26edb5c153bd937841fb37',
-    messagingSenderId: '473585103382',
-    projectId: 'fir-rpg-d7a46',
-    authDomain: 'fir-rpg-d7a46.firebaseapp.com',
-    storageBucket: 'fir-rpg-d7a46.appspot.com',
-    measurementId: 'G-FHNGDM2TRX',
+    apiKey: 'AIzaSyApCNT-qYQCAyDtWUX3TfLgp7WJpPuE0BM',
+    appId: '1:651093595693:web:45c9223e4368da9cfe4aa4',
+    messagingSenderId: '651093595693',
+    projectId: 'fir-rpg-57ae6',
+    authDomain: 'fir-rpg-57ae6.firebaseapp.com',
+    storageBucket: 'fir-rpg-57ae6.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA80z9pp-SvSXozoCyb3Xm_1TF1DnY0y_U',
-    appId: '1:473585103382:android:a50bc49d74079b3541fb37',
-    messagingSenderId: '473585103382',
-    projectId: 'fir-rpg-d7a46',
-    storageBucket: 'fir-rpg-d7a46.appspot.com',
+    apiKey: 'AIzaSyBDHZblvYKVNTDajL4mjODex-hW9a3iD8k',
+    appId: '1:651093595693:android:b806f9ab9737f50cfe4aa4',
+    messagingSenderId: '651093595693',
+    projectId: 'fir-rpg-57ae6',
+    storageBucket: 'fir-rpg-57ae6.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAQXxY93c0F38BrbDY7hNx6NYMGaEYis60',
-    appId: '1:473585103382:ios:0dee99e109e5573841fb37',
-    messagingSenderId: '473585103382',
-    projectId: 'fir-rpg-d7a46',
-    storageBucket: 'fir-rpg-d7a46.appspot.com',
+    apiKey: 'AIzaSyDF8bRPANrnyG67A5hyguVV_mflZpgqCqM',
+    appId: '1:651093595693:ios:c9d360c2a19612d7fe4aa4',
+    messagingSenderId: '651093595693',
+    projectId: 'fir-rpg-57ae6',
+    storageBucket: 'fir-rpg-57ae6.appspot.com',
     iosBundleId: 'com.example.demoRpg',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAQXxY93c0F38BrbDY7hNx6NYMGaEYis60',
-    appId: '1:473585103382:ios:0dee99e109e5573841fb37',
-    messagingSenderId: '473585103382',
-    projectId: 'fir-rpg-d7a46',
-    storageBucket: 'fir-rpg-d7a46.appspot.com',
+    apiKey: 'AIzaSyDF8bRPANrnyG67A5hyguVV_mflZpgqCqM',
+    appId: '1:651093595693:ios:c9d360c2a19612d7fe4aa4',
+    messagingSenderId: '651093595693',
+    projectId: 'fir-rpg-57ae6',
+    storageBucket: 'fir-rpg-57ae6.appspot.com',
     iosBundleId: 'com.example.demoRpg',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyA3a36qmUOKm5ffZ986qzKiwjTu4KF2Frs',
-    appId: '1:473585103382:web:1188fcb4c716c01741fb37',
-    messagingSenderId: '473585103382',
-    projectId: 'fir-rpg-d7a46',
-    authDomain: 'fir-rpg-d7a46.firebaseapp.com',
-    storageBucket: 'fir-rpg-d7a46.appspot.com',
-    measurementId: 'G-DS15DQSQ5P',
+    apiKey: 'AIzaSyApCNT-qYQCAyDtWUX3TfLgp7WJpPuE0BM',
+    appId: '1:651093595693:web:49410743a4835995fe4aa4',
+    messagingSenderId: '651093595693',
+    projectId: 'fir-rpg-57ae6',
+    authDomain: 'fir-rpg-57ae6.firebaseapp.com',
+    storageBucket: 'fir-rpg-57ae6.appspot.com',
   );
+
 }

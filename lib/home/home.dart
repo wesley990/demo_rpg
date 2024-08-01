@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
               background: Image.network(
-                'https://picsum.photos/id/870/200/300?grayscale&blur=2',
+                'https://picsum.photos/id/46/300/500',
                 fit: BoxFit.cover,
               ),
             ),

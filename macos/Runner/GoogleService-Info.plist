@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyAQXxY93c0F38BrbDY7hNx6NYMGaEYis60</string>
+	<string>AIzaSyDF8bRPANrnyG67A5hyguVV_mflZpgqCqM</string>
 	<key>GCM_SENDER_ID</key>
-	<string>473585103382</string>
+	<string>651093595693</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.example.demoRpg</string>
 	<key>PROJECT_ID</key>
-	<string>fir-rpg-d7a46</string>
+	<string>fir-rpg-57ae6</string>
 	<key>STORAGE_BUCKET</key>
-	<string>fir-rpg-d7a46.appspot.com</string>
+	<string>fir-rpg-57ae6.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:473585103382:ios:0dee99e109e5573841fb37</string>
+	<string>1:651093595693:ios:c9d360c2a19612d7fe4aa4</string>
 </dict>
 </plist>
