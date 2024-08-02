@@ -42,8 +42,8 @@ class AppTheme {
   /// Defines the appearance of [AppBar] widgets.
   static AppBarTheme _appBarTheme(ColorScheme colorScheme) {
     return AppBarTheme(
-      backgroundColor: colorScheme.primary,
-      foregroundColor: colorScheme.onPrimary,
+      backgroundColor: colorScheme.secondary,
+      foregroundColor: colorScheme.onSecondary,
       elevation: 0,
     );
   }
@@ -51,10 +51,12 @@ class AppTheme {
   /// Defines the appearance of input fields.
   static InputDecorationTheme _inputDecorationTheme(ColorScheme colorScheme) {
     return InputDecorationTheme(
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+      border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: colorScheme.onPrimary)),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide(color: colorScheme.primary),
+        borderSide: BorderSide(color: colorScheme.onPrimary),
       ),
       fillColor: colorScheme.surface,
     );
@@ -77,9 +79,14 @@ class AppTheme {
         fontWeight: FontWeight.bold,
         color: colorScheme.onPrimary,
       ),
+      titleMedium: TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+        color: colorScheme.onPrimary,
+      ),
       bodyMedium: TextStyle(
-        fontSize: 50,
-        color: colorScheme.onSurface,
+        fontSize: 20,
+        color: colorScheme.onPrimary,
       ),
     );
   }
@@ -88,8 +95,8 @@ class AppTheme {
   static TextButtonThemeData _textButtonTheme(ColorScheme colorScheme) {
     return TextButtonThemeData(
       style: TextButton.styleFrom(
-        foregroundColor: colorScheme.primary,
-        backgroundColor: Colors.transparent,
+        foregroundColor: colorScheme.onPrimaryFixed,
+        backgroundColor: colorScheme.primaryFixed,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
@@ -100,9 +107,10 @@ class AppTheme {
   static ElevatedButtonThemeData _elevatedButtonTheme(ColorScheme colorScheme) {
     return ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        foregroundColor: colorScheme.onPrimary,
-        backgroundColor: colorScheme.primary,
-        elevation: 2,
+        foregroundColor: colorScheme.onPrimaryFixed,
+        backgroundColor: colorScheme.primaryFixed,
+        elevation: 10,
+        enableFeedback: true,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
@@ -113,8 +121,8 @@ class AppTheme {
   static OutlinedButtonThemeData _outlinedButtonTheme(ColorScheme colorScheme) {
     return OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
-        foregroundColor: colorScheme.primary,
-        side: BorderSide(color: colorScheme.primary),
+        foregroundColor: colorScheme.primaryFixed,
+        side: BorderSide(color: colorScheme.primaryFixed),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
@@ -150,9 +158,13 @@ class AppTheme {
   static TextStyle bodyMedium(BuildContext context) =>
       Theme.of(context).textTheme.bodyMedium!;
 
+  /// Returns the [TextStyle] for medium titles.
+  static TextStyle titleMedium(BuildContext context) =>
+      Theme.of(context).textTheme.titleMedium!;
+
   /// Returns the color for containers.
   static Color colorContainer(BuildContext context) =>
-      Theme.of(context).colorScheme.surfaceContainer;
+      Theme.of(context).colorScheme.primary;
 
   /// Returns the custom [ContainerThemeData].
   static ContainerThemeData containerTheme(BuildContext context) =>
@@ -206,6 +218,24 @@ class ContainerThemeData extends ThemeExtension<ContainerThemeData> {
       decoration: BoxDecoration.lerp(decoration, other.decoration, t),
     );
   }
+}
+
+extension BuildContextThemeExtension on BuildContext {
+  /// Returns the [TextStyle] for large titles.
+  TextStyle get titleLarge => Theme.of(this).textTheme.titleLarge!;
+
+  /// Returns the [TextStyle] for medium body text.
+  TextStyle get bodyMedium => Theme.of(this).textTheme.bodyMedium!;
+
+  /// Returns the [TextStyle] for medium titles.
+  TextStyle get titleMedium => Theme.of(this).textTheme.titleMedium!;
+
+  /// Returns the color for containers.
+  Color get colorContainer => Theme.of(this).colorScheme.primary;
+
+  /// Returns the custom [ContainerThemeData].
+  ContainerThemeData get containerTheme =>
+      Theme.of(this).extension<ContainerThemeData>()!;
 }
 
 // Usage examples:

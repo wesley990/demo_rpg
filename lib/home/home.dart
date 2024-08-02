@@ -37,11 +37,54 @@ class HomeScreen extends StatelessWidget {
           SliverToBoxAdapter(
             child: Container(
               height: 1000,
-              color: AppTheme.colorContainer(context),
+              color: context.colorContainer,
               child: Center(
-                child: Text(
-                  'Hello, World!',
-                  style: AppTheme.bodyMedium(context),
+                child: Column(
+                  children: [
+                    Text(
+                      'body medium',
+                      style: context.bodyMedium,
+                    ),
+                    Text(
+                      'title medium',
+                      style: context.titleMedium,
+                    ),
+                    Text(
+                      'title medium',
+                      style: context.titleMedium,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Add your button logic here
+                      },
+                      child: const Text('Elevated Button'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        // Add your button logic here
+                      },
+                      child: const Text('Text Button'),
+                    ),
+                    OutlinedButton(
+                      onPressed: () {
+                        // Add your button logic here
+                      },
+                      child: const Text('Outlined Button'),
+                    ),
+                    const TextField(),
+                    const TextField(),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Enter your name',
+                      ),
+                    ),
+                    const Card(
+                      child: ListTile(
+                        title: Text('Card Title'),
+                        subtitle: Text('Card Subtitle'),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
