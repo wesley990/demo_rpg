@@ -1,6 +1,7 @@
 // home screen
 // an appbar with a ttile of "角色"
 // use customscrollview to make the listview scrollable and add a sliverlist
+import 'package:demo_rpg/home/theme.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -11,23 +12,20 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
-          SliverAppBar(
-            // pinned: true,
+          const SliverAppBar(
+            pinned: false,
             snap: true,
             floating: true,
-            expandedHeight: 50.0,
+            expandedHeight: 100.0,
             // leading: IconButton(
             //   icon: const Icon(Icons.menu),
             //   onPressed: () {},
             // ),
+            // backgroundColor: Theme.of(context).colorScheme.primary,
             flexibleSpace: FlexibleSpaceBar(
-              title: const Text(
+              title: Text(
                 '角色',
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-              ),
-              background: Image.network(
-                'https://picsum.photos/id/52/400/700',
-                fit: BoxFit.cover,
+                // style: AppTheme.titleLarge(context),
               ),
             ),
             // actions: [
@@ -36,8 +34,17 @@ class HomeScreen extends StatelessWidget {
             //   IconButton(icon: const Icon(Icons.search), onPressed: () {}),
             // ],
           ),
-          const SliverToBoxAdapter(
-            child: Placeholder(),
+          SliverToBoxAdapter(
+            child: Container(
+              height: 1000,
+              color: AppTheme.colorContainer(context),
+              child: Center(
+                child: Text(
+                  'Hello, World!',
+                  style: AppTheme.bodyMedium(context),
+                ),
+              ),
+            ),
           ),
         ],
       ),

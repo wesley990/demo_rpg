@@ -9,7 +9,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  AppTheme.init(seedColor: Colors.yellow);
   runApp(const MainApp());
 }
 
