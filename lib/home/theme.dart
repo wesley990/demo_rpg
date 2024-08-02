@@ -14,7 +14,7 @@ class AppTheme {
   /// This method uses Flutter's [ColorScheme.fromSeed] to create a harmonious color scheme
   /// based on material design principles.
   ///
-  /// [seedColor]: The base color used to generate the scheme.
+  /// [seedColor] : The base color used to generate the scheme.
   static ColorScheme _schemeLight(Color seedColor) =>
       ColorScheme.fromSeed(seedColor: seedColor, brightness: Brightness.light);
 
@@ -22,7 +22,7 @@ class AppTheme {
   ///
   /// Similar to [_schemeLight], but creates a dark theme variant.
   ///
-  /// [seedColor]: The base color used to generate the scheme.
+  /// [seedColor] : The base color used to generate the scheme.
   static ColorScheme _schemeDark(Color seedColor) =>
       ColorScheme.fromSeed(seedColor: seedColor, brightness: Brightness.dark);
 
@@ -31,7 +31,7 @@ class AppTheme {
   /// This method encapsulates all theme-related configurations in one place,
   /// making it easier to maintain consistent styling across the app.
   ///
-  /// [colorScheme]: The color scheme to base the theme on.
+  /// [colorScheme] : The color scheme to base the theme on.
   static ThemeData _createTheme(ColorScheme colorScheme) {
     final containerTheme = _containerTheme(colorScheme);
     return ThemeData(
@@ -214,7 +214,7 @@ class AppTheme {
   ///
   /// This method allows for dynamic theme updates at runtime.
   ///
-  /// [newSeedColor]: The new base color to use for generating the updated color schemes.
+  /// [newSeedColor] : The new base color to use for generating the updated color schemes.
   static void updateThemes(Color newSeedColor) {
     lightTheme = _createTheme(_schemeLight(newSeedColor));
     darkTheme = _createTheme(_schemeDark(newSeedColor));
