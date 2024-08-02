@@ -17,6 +17,7 @@ class AppTheme {
 
   // Encapsulate Changes: This method allows easy modification of the entire theme
   static ThemeData _createTheme(ColorScheme colorScheme) {
+    final containerTheme = _containerTheme(colorScheme);
     return ThemeData(
       useMaterial3: true,
       colorScheme: colorScheme,
@@ -24,6 +25,7 @@ class AppTheme {
       inputDecorationTheme: _inputDecorationTheme(colorScheme),
       cardTheme: _cardTheme(colorScheme),
       textTheme: _textTheme(colorScheme),
+      extensions: [containerTheme], // Add container theme as an extension
     );
   }
 
@@ -75,6 +77,25 @@ class AppTheme {
     );
   }
 
+  // Add container theme
+  static ContainerThemeData _containerTheme(ColorScheme colorScheme) {
+    return ContainerThemeData(
+      color: colorScheme.surface,
+      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: colorScheme.shadow.withOpacity(0.1),
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+    );
+  }
+
   // Open/Closed Principle: Easy to extend with new text styles
   // These methods now use the current theme instead of being tied to lightTheme
   static TextStyle titleLarge(BuildContext context) =>
@@ -84,6 +105,10 @@ class AppTheme {
   static Color colorContainer(BuildContext context) =>
       Theme.of(context).colorScheme.surfaceContainer;
 
+  // Add method to access container theme
+  static ContainerThemeData containerTheme(BuildContext context) =>
+      Theme.of(context).extension<ContainerThemeData>()!;
+
   // Method to update themes with a new seed color
   static void updateThemes(Color newSeedColor) {
     lightTheme = _createTheme(_schemeLight(newSeedColor));
@@ -91,6 +116,49 @@ class AppTheme {
   }
 
   // YAGNI: Additional methods can be added here as needed
+}
+
+// Define ContainerThemeData
+class ContainerThemeData extends ThemeExtension<ContainerThemeData> {
+  final Color? color;
+  final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? margin;
+  final BoxDecoration? decoration;
+
+  ContainerThemeData({
+    this.color,
+    this.padding,
+    this.margin,
+    this.decoration,
+  });
+
+  @override
+  ContainerThemeData copyWith({
+    Color? color,
+    EdgeInsetsGeometry? padding,
+    EdgeInsetsGeometry? margin,
+    BoxDecoration? decoration,
+  }) {
+    return ContainerThemeData(
+      color: color ?? this.color,
+      padding: padding ?? this.padding,
+      margin: margin ?? this.margin,
+      decoration: decoration ?? this.decoration,
+    );
+  }
+
+  @override
+  ContainerThemeData lerp(ThemeExtension<ContainerThemeData>? other, double t) {
+    if (other is! ContainerThemeData) {
+      return this;
+    }
+    return ContainerThemeData(
+      color: Color.lerp(color, other.color, t),
+      padding: EdgeInsetsGeometry.lerp(padding, other.padding, t),
+      margin: EdgeInsetsGeometry.lerp(margin, other.margin, t),
+      decoration: BoxDecoration.lerp(decoration, other.decoration, t),
+    );
+  }
 }
 
 // Example of how to use the theme:
@@ -106,6 +174,14 @@ class AppTheme {
 // Text(
 //   'Hello, World!',
 //   style: AppTheme.titleLarge(context),
+// )
+
+// Example of how to use container theme:
+// Container(
+//   decoration: AppTheme.containerTheme(context).decoration,
+//   padding: AppTheme.containerTheme(context).padding,
+//   margin: AppTheme.containerTheme(context).margin,
+//   child: YourWidget(),
 // )
 
 // Example of how to update seed color:
