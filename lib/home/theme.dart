@@ -2,19 +2,36 @@ import 'package:flutter/material.dart';
 
 /// AppTheme defines the visual styling for the entire application.
 /// It provides a centralized place for managing colors, typography, and component styles.
+///
+/// This class uses the latest Dart features and follows best practices for theme management in Flutter.
+/// It includes utility methods for easy access to theme properties and supports dynamic theme updates.
 class AppTheme {
   // Private constructor to prevent instantiation
   const AppTheme._();
 
-  // Color scheme generation
+  /// Generates a light color scheme from a seed color.
+  ///
+  /// This method uses Flutter's [ColorScheme.fromSeed] to create a harmonious color scheme
+  /// based on material design principles.
+  ///
+  /// [seedColor]: The base color used to generate the scheme.
   static ColorScheme _schemeLight(Color seedColor) =>
       ColorScheme.fromSeed(seedColor: seedColor, brightness: Brightness.light);
 
+  /// Generates a dark color scheme from a seed color.
+  ///
+  /// Similar to [_schemeLight], but creates a dark theme variant.
+  ///
+  /// [seedColor]: The base color used to generate the scheme.
   static ColorScheme _schemeDark(Color seedColor) =>
       ColorScheme.fromSeed(seedColor: seedColor, brightness: Brightness.dark);
 
   /// Creates a complete [ThemeData] object based on the provided [ColorScheme].
-  /// This method encapsulates all theme-related configurations in one place.
+  ///
+  /// This method encapsulates all theme-related configurations in one place,
+  /// making it easier to maintain consistent styling across the app.
+  ///
+  /// [colorScheme]: The color scheme to base the theme on.
   static ThemeData _createTheme(ColorScheme colorScheme) {
     final containerTheme = _containerTheme(colorScheme);
     return ThemeData(
@@ -32,14 +49,20 @@ class AppTheme {
   }
 
   /// The light theme for the application.
+  ///
+  /// This theme is based on an indigo seed color and is suitable for day mode or light environments.
   static ThemeData lightTheme = _createTheme(_schemeLight(Colors.indigo));
 
   /// The dark theme for the application.
+  ///
+  /// This theme is based on a blue seed color and is suitable for night mode or dark environments.
   static ThemeData darkTheme = _createTheme(_schemeDark(Colors.blue));
 
   // Component-specific theme methods
 
   /// Defines the appearance of [AppBar] widgets.
+  ///
+  /// Customizes the app bar to use the secondary color from the color scheme.
   static AppBarTheme _appBarTheme(ColorScheme colorScheme) => AppBarTheme(
         backgroundColor: colorScheme.secondary,
         foregroundColor: colorScheme.onSecondary,
@@ -47,6 +70,8 @@ class AppTheme {
       );
 
   /// Defines the appearance of input fields.
+  ///
+  /// Customizes input decorations with rounded corners and scheme-appropriate colors.
   static InputDecorationTheme _inputDecorationTheme(ColorScheme colorScheme) =>
       InputDecorationTheme(
         border: OutlineInputBorder(
@@ -61,6 +86,8 @@ class AppTheme {
       );
 
   /// Defines the appearance of [Card] widgets.
+  ///
+  /// Sets up cards with rounded corners and a slight elevation.
   static CardTheme _cardTheme(ColorScheme colorScheme) => CardTheme(
         color: colorScheme.surface,
         elevation: 2,
@@ -68,6 +95,8 @@ class AppTheme {
       );
 
   /// Defines the text styles for the application.
+  ///
+  /// Establishes a hierarchy of text styles with consistent sizing and coloring.
   static TextTheme _textTheme(ColorScheme colorScheme) => TextTheme(
         titleLarge: TextStyle(
           fontSize: 40,
@@ -86,6 +115,8 @@ class AppTheme {
       );
 
   /// Defines the appearance of [TextButton] widgets.
+  ///
+  /// Customizes text buttons with rounded corners and appropriate colors.
   static TextButtonThemeData _textButtonTheme(ColorScheme colorScheme) =>
       TextButtonThemeData(
         style: TextButton.styleFrom(
@@ -97,6 +128,8 @@ class AppTheme {
       );
 
   /// Defines the appearance of [ElevatedButton] widgets.
+  ///
+  /// Sets up elevated buttons with a distinctive look, including shadows and rounded corners.
   static ElevatedButtonThemeData _elevatedButtonTheme(
           ColorScheme colorScheme) =>
       ElevatedButtonThemeData(
@@ -111,6 +144,8 @@ class AppTheme {
       );
 
   /// Defines the appearance of [OutlinedButton] widgets.
+  ///
+  /// Customizes outlined buttons with a border and appropriate colors.
   static OutlinedButtonThemeData _outlinedButtonTheme(
           ColorScheme colorScheme) =>
       OutlinedButtonThemeData(
@@ -123,6 +158,8 @@ class AppTheme {
       );
 
   /// Defines the custom container theme.
+  ///
+  /// Creates a consistent style for container widgets, including padding, margins, and shadows.
   static ContainerThemeData _containerTheme(ColorScheme colorScheme) =>
       ContainerThemeData(
         color: colorScheme.surface,
@@ -143,26 +180,41 @@ class AppTheme {
   // Utility methods for accessing theme properties
 
   /// Returns the [TextStyle] for large titles.
+  ///
+  /// This method provides easy access to the large title style from the current theme.
   static TextStyle titleLarge(BuildContext context) =>
       Theme.of(context).textTheme.titleLarge!;
 
   /// Returns the [TextStyle] for medium body text.
+  ///
+  /// This method provides easy access to the medium body text style from the current theme.
   static TextStyle bodyMedium(BuildContext context) =>
       Theme.of(context).textTheme.bodyMedium!;
 
   /// Returns the [TextStyle] for medium titles.
+  ///
+  /// This method provides easy access to the medium title style from the current theme.
   static TextStyle titleMedium(BuildContext context) =>
       Theme.of(context).textTheme.titleMedium!;
 
   /// Returns the color for containers.
+  ///
+  /// This method provides easy access to the primary color from the current theme,
+  /// which is used as the default container color.
   static Color colorContainer(BuildContext context) =>
       Theme.of(context).colorScheme.primary;
 
   /// Returns the custom [ContainerThemeData].
+  ///
+  /// This method provides easy access to the custom container theme data from the current theme.
   static ContainerThemeData containerTheme(BuildContext context) =>
       Theme.of(context).extension<ContainerThemeData>()!;
 
   /// Updates both light and dark themes with a new seed color.
+  ///
+  /// This method allows for dynamic theme updates at runtime.
+  ///
+  /// [newSeedColor]: The new base color to use for generating the updated color schemes.
   static void updateThemes(Color newSeedColor) {
     lightTheme = _createTheme(_schemeLight(newSeedColor));
     darkTheme = _createTheme(_schemeDark(newSeedColor));
@@ -170,12 +222,18 @@ class AppTheme {
 }
 
 /// Custom theme extension for container styling.
+///
+/// This class defines a set of properties that can be used to style container widgets consistently
+/// throughout the app. It extends [ThemeExtension] to integrate seamlessly with Flutter's theming system.
 class ContainerThemeData extends ThemeExtension<ContainerThemeData> {
   final Color? color;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
   final BoxDecoration? decoration;
 
+  /// Creates a [ContainerThemeData] instance.
+  ///
+  /// All parameters are optional and can be specified to customize the container appearance.
   const ContainerThemeData({
     this.color,
     this.padding,
@@ -211,6 +269,9 @@ class ContainerThemeData extends ThemeExtension<ContainerThemeData> {
   }
 }
 
+/// Extension on [BuildContext] to provide easy access to theme properties.
+///
+/// This extension allows for more concise syntax when accessing theme properties in widgets.
 extension BuildContextThemeExtension on BuildContext {
   /// Returns the [TextStyle] for large titles.
   TextStyle get titleLarge => Theme.of(this).textTheme.titleLarge!;
