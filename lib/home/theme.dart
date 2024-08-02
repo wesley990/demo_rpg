@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 
+/// AppTheme defines the visual styling for the entire application.
+/// It provides a centralized place for managing colors, typography, and component styles.
 class AppTheme {
   // Private constructor to prevent instantiation
   const AppTheme._();
 
-  // KISS: Keep the color scheme generation simple
-  static ColorScheme _schemeLight(Color seedColor) {
-    return ColorScheme.fromSeed(
-        seedColor: seedColor, brightness: Brightness.light);
-  }
+  // Color scheme generation
+  static ColorScheme _schemeLight(Color seedColor) =>
+      ColorScheme.fromSeed(seedColor: seedColor, brightness: Brightness.light);
 
-  static ColorScheme _schemeDark(Color seedColor) {
-    return ColorScheme.fromSeed(
-        seedColor: seedColor, brightness: Brightness.dark);
-  }
+  static ColorScheme _schemeDark(Color seedColor) =>
+      ColorScheme.fromSeed(seedColor: seedColor, brightness: Brightness.dark);
 
-  // Encapsulate Changes: This method allows easy modification of the entire theme
+  /// Creates a complete [ThemeData] object based on the provided [ColorScheme].
+  /// This method encapsulates all theme-related configurations in one place.
   static ThemeData _createTheme(ColorScheme colorScheme) {
     final containerTheme = _containerTheme(colorScheme);
     return ThemeData(
@@ -25,15 +24,22 @@ class AppTheme {
       inputDecorationTheme: _inputDecorationTheme(colorScheme),
       cardTheme: _cardTheme(colorScheme),
       textTheme: _textTheme(colorScheme),
-      extensions: [containerTheme], // Add container theme as an extension
+      textButtonTheme: _textButtonTheme(colorScheme),
+      elevatedButtonTheme: _elevatedButtonTheme(colorScheme),
+      outlinedButtonTheme: _outlinedButtonTheme(colorScheme),
+      extensions: [containerTheme],
     );
   }
 
-  // DRY: Reuse the color scheme generation
+  /// The light theme for the application.
   static ThemeData lightTheme = _createTheme(_schemeLight(Colors.indigo));
+
+  /// The dark theme for the application.
   static ThemeData darkTheme = _createTheme(_schemeDark(Colors.blue));
 
-  // Separation of Concerns: Each component has its own theme method
+  // Component-specific theme methods
+
+  /// Defines the appearance of [AppBar] widgets.
   static AppBarTheme _appBarTheme(ColorScheme colorScheme) {
     return AppBarTheme(
       backgroundColor: colorScheme.primary,
@@ -42,11 +48,10 @@ class AppTheme {
     );
   }
 
+  /// Defines the appearance of input fields.
   static InputDecorationTheme _inputDecorationTheme(ColorScheme colorScheme) {
     return InputDecorationTheme(
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
         borderSide: BorderSide(color: colorScheme.primary),
@@ -55,6 +60,7 @@ class AppTheme {
     );
   }
 
+  /// Defines the appearance of [Card] widgets.
   static CardTheme _cardTheme(ColorScheme colorScheme) {
     return CardTheme(
       color: colorScheme.surface,
@@ -63,6 +69,7 @@ class AppTheme {
     );
   }
 
+  /// Defines the text styles for the application.
   static TextTheme _textTheme(ColorScheme colorScheme) {
     return TextTheme(
       titleLarge: TextStyle(
@@ -77,7 +84,44 @@ class AppTheme {
     );
   }
 
-  // Add container theme
+  /// Defines the appearance of [TextButton] widgets.
+  static TextButtonThemeData _textButtonTheme(ColorScheme colorScheme) {
+    return TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: colorScheme.primary,
+        backgroundColor: Colors.transparent,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+    );
+  }
+
+  /// Defines the appearance of [ElevatedButton] widgets.
+  static ElevatedButtonThemeData _elevatedButtonTheme(ColorScheme colorScheme) {
+    return ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        foregroundColor: colorScheme.onPrimary,
+        backgroundColor: colorScheme.primary,
+        elevation: 2,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+    );
+  }
+
+  /// Defines the appearance of [OutlinedButton] widgets.
+  static OutlinedButtonThemeData _outlinedButtonTheme(ColorScheme colorScheme) {
+    return OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        foregroundColor: colorScheme.primary,
+        side: BorderSide(color: colorScheme.primary),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+    );
+  }
+
+  /// Defines the custom container theme.
   static ContainerThemeData _containerTheme(ColorScheme colorScheme) {
     return ContainerThemeData(
       color: colorScheme.surface,
@@ -96,29 +140,32 @@ class AppTheme {
     );
   }
 
-  // Open/Closed Principle: Easy to extend with new text styles
-  // These methods now use the current theme instead of being tied to lightTheme
+  // Utility methods for accessing theme properties
+
+  /// Returns the [TextStyle] for large titles.
   static TextStyle titleLarge(BuildContext context) =>
       Theme.of(context).textTheme.titleLarge!;
+
+  /// Returns the [TextStyle] for medium body text.
   static TextStyle bodyMedium(BuildContext context) =>
       Theme.of(context).textTheme.bodyMedium!;
+
+  /// Returns the color for containers.
   static Color colorContainer(BuildContext context) =>
       Theme.of(context).colorScheme.surfaceContainer;
 
-  // Add method to access container theme
+  /// Returns the custom [ContainerThemeData].
   static ContainerThemeData containerTheme(BuildContext context) =>
       Theme.of(context).extension<ContainerThemeData>()!;
 
-  // Method to update themes with a new seed color
+  /// Updates both light and dark themes with a new seed color.
   static void updateThemes(Color newSeedColor) {
     lightTheme = _createTheme(_schemeLight(newSeedColor));
     darkTheme = _createTheme(_schemeDark(newSeedColor));
   }
-
-  // YAGNI: Additional methods can be added here as needed
 }
 
-// Define ContainerThemeData
+/// Custom theme extension for container styling.
 class ContainerThemeData extends ThemeExtension<ContainerThemeData> {
   final Color? color;
   final EdgeInsetsGeometry? padding;
@@ -161,28 +208,42 @@ class ContainerThemeData extends ThemeExtension<ContainerThemeData> {
   }
 }
 
-// Example of how to use the theme:
-// void main() {
-//   runApp(MaterialApp(
-//     theme: AppTheme.lightTheme,
-//     darkTheme: AppTheme.darkTheme,
-//     home: MyHomePage(),
-//   ));
-// }
+// Usage examples:
 
-// Example of how to use text styles:
-// Text(
-//   'Hello, World!',
-//   style: AppTheme.titleLarge(context),
-// )
+/// How to use the theme in your main.dart file:
+///
+/// ```dart
+/// void main() {
+///   runApp(MaterialApp(
+///     theme: AppTheme.lightTheme,
+///     darkTheme: AppTheme.darkTheme,
+///     home: MyHomePage(),
+///   ));
+/// }
+/// ```
 
-// Example of how to use container theme:
-// Container(
-//   decoration: AppTheme.containerTheme(context).decoration,
-//   padding: AppTheme.containerTheme(context).padding,
-//   margin: AppTheme.containerTheme(context).margin,
-//   child: YourWidget(),
-// )
+/// How to use text styles:
+///
+/// ```dart
+/// Text(
+///   'Hello, World!',
+///   style: AppTheme.titleLarge(context),
+/// )
+/// ```
 
-// Example of how to update seed color:
-// AppTheme.updateThemes(Colors.green);
+/// How to use container theme:
+///
+/// ```dart
+/// Container(
+///   decoration: AppTheme.containerTheme(context).decoration,
+///   padding: AppTheme.containerTheme(context).padding,
+///   margin: AppTheme.containerTheme(context).margin,
+///   child: YourWidget(),
+/// )
+/// ```
+
+/// How to update seed color:
+///
+/// ```dart
+/// AppTheme.updateThemes(Colors.green);
+/// ```
