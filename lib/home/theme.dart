@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class AppTheme {
@@ -20,7 +18,6 @@ class AppTheme {
   // Encapsulate Changes: This method allows easy modification of the entire theme
   static ThemeData _createTheme(ColorScheme colorScheme) {
     final containerTheme = _containerTheme(colorScheme);
-    final styledButtonTheme = _styledButtonTheme(colorScheme);
     return ThemeData(
       useMaterial3: true,
       colorScheme: colorScheme,
@@ -28,10 +25,7 @@ class AppTheme {
       inputDecorationTheme: _inputDecorationTheme(colorScheme),
       cardTheme: _cardTheme(colorScheme),
       textTheme: _textTheme(colorScheme),
-      extensions: [
-        containerTheme,
-        styledButtonTheme
-      ], // Add both custom themes as extensions
+      extensions: [containerTheme], // Add container theme as an extension
     );
   }
 
@@ -83,7 +77,7 @@ class AppTheme {
     );
   }
 
-  // Container theme
+  // Add container theme
   static ContainerThemeData _containerTheme(ColorScheme colorScheme) {
     return ContainerThemeData(
       color: colorScheme.surface,
@@ -102,23 +96,6 @@ class AppTheme {
     );
   }
 
-  // Styled button theme
-  static StyledButtonThemeData _styledButtonTheme(ColorScheme colorScheme) {
-    return StyledButtonThemeData(
-      backgroundColor: colorScheme.primary,
-      foregroundColor: colorScheme.onPrimary,
-      disabledBackgroundColor: colorScheme.onSurface.withOpacity(0.12),
-      disabledForegroundColor: colorScheme.onSurface.withOpacity(0.38),
-      elevation: 2,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      textStyle: const TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-  }
-
   // Open/Closed Principle: Easy to extend with new text styles
   // These methods now use the current theme instead of being tied to lightTheme
   static TextStyle titleLarge(BuildContext context) =>
@@ -128,12 +105,9 @@ class AppTheme {
   static Color colorContainer(BuildContext context) =>
       Theme.of(context).colorScheme.surfaceContainer;
 
-  // Methods to access custom themes
+  // Add method to access container theme
   static ContainerThemeData containerTheme(BuildContext context) =>
       Theme.of(context).extension<ContainerThemeData>()!;
-
-  static StyledButtonThemeData styledButtonTheme(BuildContext context) =>
-      Theme.of(context).extension<StyledButtonThemeData>()!;
 
   // Method to update themes with a new seed color
   static void updateThemes(Color newSeedColor) {
@@ -187,74 +161,6 @@ class ContainerThemeData extends ThemeExtension<ContainerThemeData> {
   }
 }
 
-// Define StyledButtonThemeData
-class StyledButtonThemeData extends ThemeExtension<StyledButtonThemeData> {
-  final Color? backgroundColor;
-  final Color? foregroundColor;
-  final Color? disabledBackgroundColor;
-  final Color? disabledForegroundColor;
-  final double? elevation;
-  final EdgeInsetsGeometry? padding;
-  final OutlinedBorder? shape;
-  final TextStyle? textStyle;
-
-  StyledButtonThemeData({
-    this.backgroundColor,
-    this.foregroundColor,
-    this.disabledBackgroundColor,
-    this.disabledForegroundColor,
-    this.elevation,
-    this.padding,
-    this.shape,
-    this.textStyle,
-  });
-
-  @override
-  StyledButtonThemeData copyWith({
-    Color? backgroundColor,
-    Color? foregroundColor,
-    Color? disabledBackgroundColor,
-    Color? disabledForegroundColor,
-    double? elevation,
-    EdgeInsetsGeometry? padding,
-    OutlinedBorder? shape,
-    TextStyle? textStyle,
-  }) {
-    return StyledButtonThemeData(
-      backgroundColor: backgroundColor ?? this.backgroundColor,
-      foregroundColor: foregroundColor ?? this.foregroundColor,
-      disabledBackgroundColor:
-          disabledBackgroundColor ?? this.disabledBackgroundColor,
-      disabledForegroundColor:
-          disabledForegroundColor ?? this.disabledForegroundColor,
-      elevation: elevation ?? this.elevation,
-      padding: padding ?? this.padding,
-      shape: shape ?? this.shape,
-      textStyle: textStyle ?? this.textStyle,
-    );
-  }
-
-  @override
-  StyledButtonThemeData lerp(
-      ThemeExtension<StyledButtonThemeData>? other, double t) {
-    if (other is! StyledButtonThemeData) {
-      return this;
-    }
-    return StyledButtonThemeData(
-      backgroundColor: Color.lerp(backgroundColor, other.backgroundColor, t),
-      foregroundColor: Color.lerp(foregroundColor, other.foregroundColor, t),
-      disabledBackgroundColor:
-          Color.lerp(disabledBackgroundColor, other.disabledBackgroundColor, t),
-      disabledForegroundColor:
-          Color.lerp(disabledForegroundColor, other.disabledForegroundColor, t),
-      elevation: lerpDouble(elevation, other.elevation, t),
-      padding: EdgeInsetsGeometry.lerp(padding, other.padding, t),
-      shape: OutlinedBorder.lerp(shape, other.shape, t),
-      textStyle: TextStyle.lerp(textStyle, other.textStyle, t),
-    );
-  }
-}
-
 // Example of how to use the theme:
 // void main() {
 //   runApp(MaterialApp(
@@ -276,20 +182,6 @@ class StyledButtonThemeData extends ThemeExtension<StyledButtonThemeData> {
 //   padding: AppTheme.containerTheme(context).padding,
 //   margin: AppTheme.containerTheme(context).margin,
 //   child: YourWidget(),
-// )
-
-// Example of how to use styled button theme:
-// ElevatedButton(
-//   style: ElevatedButton.styleFrom(
-//     backgroundColor: AppTheme.styledButtonTheme(context).backgroundColor,
-//     foregroundColor: AppTheme.styledButtonTheme(context).foregroundColor,
-//     elevation: AppTheme.styledButtonTheme(context).elevation,
-//     padding: AppTheme.styledButtonTheme(context).padding,
-//     shape: AppTheme.styledButtonTheme(context).shape,
-//     textStyle: AppTheme.styledButtonTheme(context).textStyle,
-//   ),
-//   onPressed: () {},
-//   child: Text('Styled Button'),
 // )
 
 // Example of how to update seed color:
