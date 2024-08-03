@@ -4,8 +4,8 @@ class AppTheme {
   AppTheme._(); // Private constructor to prevent instantiation
 
   // Define your seed colors here
-  static const Color _lightSeedColor = Color.fromARGB(255, 108, 111, 109);
-  static const Color _darkSeedColor = Colors.blueAccent;
+  static const Color _lightSeedColor = Colors.blue;
+  static const Color _darkSeedColor = Colors.blue;
 
   // Light theme
   static final ThemeData lightTheme =
@@ -65,7 +65,8 @@ class AppTheme {
         defaultPadding: const EdgeInsets.all(8.0),
         defaultMargin: const EdgeInsets.all(8.0),
         defaultBorderRadius: BorderRadius.circular(15.0),
-        defaultColor: colorScheme.primary, // Use the theme's primary color
+        defaultColor:
+            colorScheme.primaryContainer, // Use the theme's primary color
       );
 
   // Text styles
