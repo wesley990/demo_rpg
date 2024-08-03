@@ -53,6 +53,7 @@ class AppTheme {
       textSelectionTheme: _textSelectionTheme(colorScheme),
       timePickerTheme: _timePickerTheme(colorScheme),
       appBarTheme: _appBarTheme(colorScheme),
+      inputDecorationTheme: _inputDecorationTheme(colorScheme),
       extensions: [
         containerTheme(colorScheme),
       ],
@@ -102,6 +103,37 @@ class AppTheme {
       TextStyle(fontSize: 11, fontWeight: FontWeight.w500);
 
   // Component themes
+  static InputDecorationTheme _inputDecorationTheme(ColorScheme colorScheme) {
+    return InputDecorationTheme(
+      filled: true,
+      fillColor: colorScheme.surface,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: BorderSide(
+          color: colorScheme.onSurface,
+        ),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: BorderSide(
+          color: colorScheme.primary,
+        ),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: BorderSide(
+          color: colorScheme.onSurface.withOpacity(0.5),
+        ),
+      ),
+      labelStyle: TextStyle(
+        color: colorScheme.onSurface,
+      ),
+      hintStyle: TextStyle(
+        color: colorScheme.onSurface.withOpacity(0.5),
+      ),
+    );
+  }
+
   // Updated theme methods
   static BadgeThemeData _badgeTheme(ColorScheme colorScheme) => BadgeThemeData(
         backgroundColor: colorScheme.secondary,
