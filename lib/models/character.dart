@@ -1,3 +1,4 @@
+import 'package:demo_rpg/models/skill.dart';
 import 'package:demo_rpg/models/stats.dart';
 import 'package:demo_rpg/models/vocation.dart';
 
@@ -8,6 +9,7 @@ class Character with Stats {
   final String slogan;
   final int id;
   final Vocation vocation;
+  final Set<Skill> skills = {};
 
   // Private field for encapsulation
   bool _isFavorite;
@@ -52,4 +54,10 @@ class Character with Stats {
   // Implementing hashCode for consistency with equals
   @override
   int get hashCode => name.hashCode ^ id.hashCode;
+
+  // update skill set
+  void updateSkills(Set<Skill> newSkills) {
+    skills.clear();
+    skills.addAll(newSkills);
+  }
 }
