@@ -22,9 +22,23 @@ class MainApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.system,
-      home: const Scaffold(
-        body: Center(
-          child: SampleScreen(),
+      home: const SelectableRegionExample(),
+    );
+  }
+}
+
+class SelectableRegionExample extends StatelessWidget {
+  const SelectableRegionExample({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final focusNode = FocusNode();
+    return Scaffold(
+      body: Center(
+        child: SelectableRegion(
+          selectionControls: materialTextSelectionControls,
+          focusNode: focusNode,
+          child: const SampleScreen(),
         ),
       ),
     );
