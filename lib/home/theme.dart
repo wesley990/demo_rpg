@@ -26,11 +26,12 @@ class AppTheme {
     );
 
     return ThemeData(
-      useMaterial3: true,
-      colorScheme: colorScheme,
-      brightness: brightness,
-      textTheme: textTheme,
-    ).copyWith(
+            useMaterial3: true,
+            colorScheme: colorScheme,
+            brightness: brightness,
+            textTheme: textTheme,
+            visualDensity: VisualDensity.adaptivePlatformDensity)
+        .copyWith(
       // Apply custom theme data for various components
       badgeTheme: _badgeTheme(colorScheme),
       bottomAppBarTheme: _bottomAppBarTheme(colorScheme),
@@ -93,21 +94,43 @@ class AppTheme {
   static InputDecorationTheme _inputDecorationTheme(ColorScheme colorScheme) =>
       InputDecorationTheme(
         filled: true,
-        fillColor: colorScheme.surface,
+        fillColor: colorScheme.surfaceContainerHighest.withOpacity(0.5),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(color: colorScheme.onSurface),
+          borderRadius: BorderRadius.circular(12.0),
+          borderSide: BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(color: colorScheme.primary),
+          borderRadius: BorderRadius.circular(12.0),
+          borderSide: BorderSide(color: colorScheme.primary, width: 2.0),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(color: colorScheme.onSurface.withOpacity(0.5)),
+          borderRadius: BorderRadius.circular(12.0),
+          borderSide: BorderSide(color: colorScheme.outline.withOpacity(0.3)),
         ),
-        labelStyle: TextStyle(color: colorScheme.onSurface),
-        hintStyle: TextStyle(color: colorScheme.onSurface.withOpacity(0.5)),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.0),
+          borderSide: BorderSide(color: colorScheme.error, width: 1.5),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.0),
+          borderSide: BorderSide(color: colorScheme.error, width: 2.0),
+        ),
+        labelStyle: TextStyle(
+          color: colorScheme.onSurfaceVariant,
+          fontWeight: FontWeight.w500,
+        ),
+        hintStyle: TextStyle(
+          color: colorScheme.onSurfaceVariant.withOpacity(0.7),
+          fontStyle: FontStyle.italic,
+        ),
+        floatingLabelStyle: TextStyle(
+          color: colorScheme.primary,
+          fontWeight: FontWeight.bold,
+        ),
+        prefixIconColor: colorScheme.onSurfaceVariant,
+        suffixIconColor: colorScheme.onSurfaceVariant,
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
       );
 
   static BadgeThemeData _badgeTheme(ColorScheme colorScheme) => BadgeThemeData(
