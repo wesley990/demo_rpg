@@ -12,14 +12,14 @@ class AppTheme {
 
   /// Light theme configuration
   static final ThemeData lightTheme =
-      _getThemeData(_lightSeedColor, Brightness.light);
+      _buildTheme(_lightSeedColor, Brightness.light);
 
   /// Dark theme configuration
   static final ThemeData darkTheme =
-      _getThemeData(_darkSeedColor, Brightness.dark);
+      _buildTheme(_darkSeedColor, Brightness.dark);
 
   /// Helper method to generate ThemeData based on seed color and brightness
-  static ThemeData _getThemeData(Color seedColor, Brightness brightness) {
+  static ThemeData _buildTheme(Color seedColor, Brightness brightness) {
     final colorScheme = ColorScheme.fromSeed(
       seedColor: seedColor,
       brightness: brightness,
@@ -59,85 +59,56 @@ class AppTheme {
       appBarTheme: _appBarTheme(colorScheme),
       inputDecorationTheme: _inputDecorationTheme(colorScheme),
       extensions: [
-        containerTheme(colorScheme),
+        ContainerTheme(
+          defaultPadding: const EdgeInsets.all(8.0),
+          defaultMargin: EdgeInsets.zero,
+          defaultBorderRadius: BorderRadius.circular(15.0),
+          defaultColor: colorScheme.primaryContainer,
+        ),
       ],
     );
   }
 
-  /// Predefined Container Theme
-  static ContainerTheme containerTheme(ColorScheme colorScheme) =>
-      ContainerTheme(
-        defaultPadding: const EdgeInsets.all(8.0),
-        defaultMargin: const EdgeInsets.all(0.0),
-        defaultBorderRadius: BorderRadius.circular(15.0),
-        defaultColor: colorScheme.primaryContainer,
+  // Text styles
+  static const textTheme = TextTheme(
+    displayLarge: TextStyle(fontSize: 57, fontWeight: FontWeight.normal),
+    displayMedium: TextStyle(fontSize: 45, fontWeight: FontWeight.normal),
+    displaySmall: TextStyle(fontSize: 36, fontWeight: FontWeight.normal),
+    headlineLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.normal),
+    headlineMedium: TextStyle(fontSize: 28, fontWeight: FontWeight.normal),
+    headlineSmall: TextStyle(fontSize: 24, fontWeight: FontWeight.normal),
+    titleLarge: TextStyle(fontSize: 22, fontWeight: FontWeight.normal),
+    titleMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+    titleSmall: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+    bodyLarge: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+    bodyMedium: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+    bodySmall: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
+    labelLarge: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+    labelMedium: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+    labelSmall: TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
+  );
+
+  // Component themes
+  static InputDecorationTheme _inputDecorationTheme(ColorScheme colorScheme) =>
+      InputDecorationTheme(
+        filled: true,
+        fillColor: colorScheme.surface,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: BorderSide(color: colorScheme.onSurface),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: BorderSide(color: colorScheme.primary),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: BorderSide(color: colorScheme.onSurface.withOpacity(0.5)),
+        ),
+        labelStyle: TextStyle(color: colorScheme.onSurface),
+        hintStyle: TextStyle(color: colorScheme.onSurface.withOpacity(0.5)),
       );
 
-  // Text styles
-  static const TextStyle displayLarge =
-      TextStyle(fontSize: 57, fontWeight: FontWeight.normal);
-  static const TextStyle displayMedium =
-      TextStyle(fontSize: 45, fontWeight: FontWeight.normal);
-  static const TextStyle displaySmall =
-      TextStyle(fontSize: 36, fontWeight: FontWeight.normal);
-  static const TextStyle headlineLarge =
-      TextStyle(fontSize: 32, fontWeight: FontWeight.normal);
-  static const TextStyle headlineMedium =
-      TextStyle(fontSize: 28, fontWeight: FontWeight.normal);
-  static const TextStyle headlineSmall =
-      TextStyle(fontSize: 24, fontWeight: FontWeight.normal);
-  static const TextStyle titleLarge =
-      TextStyle(fontSize: 22, fontWeight: FontWeight.normal);
-  static const TextStyle titleMedium =
-      TextStyle(fontSize: 16, fontWeight: FontWeight.w500);
-  static const TextStyle titleSmall =
-      TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
-  static const TextStyle bodyLarge =
-      TextStyle(fontSize: 16, fontWeight: FontWeight.normal);
-  static const TextStyle bodyMedium =
-      TextStyle(fontSize: 14, fontWeight: FontWeight.normal);
-  static const TextStyle bodySmall =
-      TextStyle(fontSize: 12, fontWeight: FontWeight.normal);
-  static const TextStyle labelLarge =
-      TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
-  static const TextStyle labelMedium =
-      TextStyle(fontSize: 12, fontWeight: FontWeight.w500);
-  static const TextStyle labelSmall =
-      TextStyle(fontSize: 11, fontWeight: FontWeight.w500);
-
-  // Component InputDecorationTheme
-  static InputDecorationTheme _inputDecorationTheme(ColorScheme colorScheme) {
-    return InputDecorationTheme(
-      filled: true,
-      fillColor: colorScheme.surface,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8.0),
-        borderSide: BorderSide(
-          color: colorScheme.onSurface,
-        ),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8.0),
-        borderSide: BorderSide(
-          color: colorScheme.primary,
-        ),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8.0),
-        borderSide: BorderSide(
-          color: colorScheme.onSurface.withOpacity(0.5),
-        ),
-      ),
-      labelStyle: TextStyle(
-        color: colorScheme.onSurface,
-      ),
-      hintStyle: TextStyle(
-        color: colorScheme.onSurface.withOpacity(0.5),
-      ),
-    );
-  }
-
-  // Updated theme methods
   static BadgeThemeData _badgeTheme(ColorScheme colorScheme) => BadgeThemeData(
         backgroundColor: colorScheme.secondary,
         textColor: colorScheme.onSecondary,
@@ -343,18 +314,10 @@ class AppTheme {
         backgroundColor: colorScheme.primary,
         foregroundColor: colorScheme.onPrimary,
         elevation: 0,
-        // toolbarHeight: 40,
-        titleTextStyle: TextStyle(
-          fontSize: 40,
-          fontWeight: FontWeight.bold,
-          color: colorScheme.onPrimary,
-        ),
-        iconTheme: IconThemeData(
-          color: colorScheme.onPrimary,
-        ),
-        actionsIconTheme: IconThemeData(
-          color: colorScheme.onPrimary,
-        ),
+        titleTextStyle:
+            textTheme.titleLarge?.copyWith(color: colorScheme.onPrimary),
+        iconTheme: IconThemeData(color: colorScheme.onPrimary),
+        actionsIconTheme: IconThemeData(color: colorScheme.onPrimary),
         centerTitle: true,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: colorScheme.primary,
@@ -370,7 +333,7 @@ class ContainerTheme extends ThemeExtension<ContainerTheme> {
   final BorderRadius defaultBorderRadius;
   final Color defaultColor;
 
-  ContainerTheme({
+  const ContainerTheme({
     required this.defaultPadding,
     required this.defaultMargin,
     required this.defaultBorderRadius,
@@ -438,14 +401,15 @@ class StyledContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final containerTheme = Theme.of(context).containerTheme;
 
-    return Container(
-      padding: padding ?? containerTheme.defaultPadding,
-      margin: margin ?? containerTheme.defaultMargin,
-      decoration: BoxDecoration(
-        color: color ?? containerTheme.defaultColor,
-        borderRadius: borderRadius ?? containerTheme.defaultBorderRadius,
+    return Material(
+      elevation: elevation ?? 0,
+      borderRadius: borderRadius ?? containerTheme.defaultBorderRadius,
+      color: color ?? containerTheme.defaultColor,
+      child: Container(
+        padding: padding ?? containerTheme.defaultPadding,
+        margin: margin ?? containerTheme.defaultMargin,
+        child: child,
       ),
-      child: child,
     );
   }
 }

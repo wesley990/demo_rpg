@@ -27,17 +27,17 @@ class SampleScreen extends StatelessWidget {
               child: Center(
                 child: Column(
                   children: [
-                    const Text(
+                    Text(
                       'body medium',
-                      style: AppTheme.bodyMedium,
+                      style: AppTheme.textTheme.bodyMedium,
                     ),
-                    const Text(
+                    Text(
                       'title medium',
-                      style: AppTheme.titleMedium,
+                      style: AppTheme.textTheme.titleMedium,
                     ),
-                    const Text(
+                    Text(
                       'title medium',
-                      style: AppTheme.titleMedium,
+                      style: AppTheme.textTheme.titleMedium,
                     ),
                     ElevatedButton(
                       onPressed: () {
