@@ -447,3 +447,180 @@ class StyledContainer extends StatelessWidget {
     );
   }
 }
+
+
+// Add these examples at the end of the theme.dart file
+
+/// This example demonstrates how to use the AppTheme in a Flutter application.
+/// It sets up the MaterialApp with light and dark themes from AppTheme.
+// void main() {
+//   runApp(MyApp());
+// }
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Theme Example App',
+//       theme: AppTheme.lightTheme,
+//       darkTheme: AppTheme.darkTheme,
+//       themeMode: ThemeMode.system, // Use system theme mode
+//       home: MyHomePage(),
+//     );
+//   }
+// }
+
+/// MyHomePage showcases various themed components and text styles.
+/// It demonstrates how the theme is applied to different widgets.
+// class MyHomePage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Theme Example'),
+//       ),
+//       body: SingleChildScrollView(
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             // Example of StyledContainer usage
+//             StyledContainer(
+//               child: Text('This is a styled container'),
+//             ),
+
+//             // Various button types with themed appearances
+//             ElevatedButton(
+//               onPressed: () {},
+//               child: Text('Elevated Button'),
+//             ),
+//             FilledButton(
+//               onPressed: () {},
+//               child: Text('Filled Button'),
+//             ),
+//             OutlinedButton(
+//               onPressed: () {},
+//               child: Text('Outlined Button'),
+//             ),
+//             TextButton(
+//               onPressed: () {},
+//               child: Text('Text Button'),
+//             ),
+
+//             // Other themed components
+//             Switch(
+//               value: true,
+//               onChanged: (bool value) {},
+//             ),
+//             Checkbox(
+//               value: true,
+//               onChanged: (bool? value) {},
+//             ),
+//             Slider(
+//               value: 0.5,
+//               onChanged: (double value) {},
+//             ),
+
+//             // TextField with themed decoration
+//             TextField(
+//               decoration: InputDecoration(
+//                 labelText: 'Input Field',
+//                 hintText: 'Enter text here',
+//               ),
+//             ),
+
+//             SizedBox(height: 20),
+
+//             // Text style examples
+//             Text('Text Style Examples:', style: AppTheme.headlineMedium),
+//             Text('Display Large', style: AppTheme.displayLarge),
+//             Text('Display Medium', style: AppTheme.displayMedium),
+//             Text('Display Small', style: AppTheme.displaySmall),
+//             Text('Headline Large', style: AppTheme.headlineLarge),
+//             Text('Headline Medium', style: AppTheme.headlineMedium),
+//             Text('Headline Small', style: AppTheme.headlineSmall),
+//             Text('Title Large', style: AppTheme.titleLarge),
+//             Text('Title Medium', style: AppTheme.titleMedium),
+//             Text('Title Small', style: AppTheme.titleSmall),
+//             Text('Body Large', style: AppTheme.bodyLarge),
+//             Text('Body Medium', style: AppTheme.bodyMedium),
+//             Text('Body Small', style: AppTheme.bodySmall),
+//             Text('Label Large', style: AppTheme.labelLarge),
+//             Text('Label Medium', style: AppTheme.labelMedium),
+//             Text('Label Small', style: AppTheme.labelSmall),
+//           ],
+//         ),
+//       ),
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: () {},
+//         child: Icon(Icons.add),
+//       ),
+//       bottomNavigationBar: BottomNavigationBar(
+//         items: [
+//           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+//           BottomNavigationBarItem(icon: Icon(Icons.business), label: 'Business'),
+//           BottomNavigationBarItem(icon: Icon(Icons.school), label: 'School'),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+/// This example shows how to use the ContainerTheme extension directly.
+/// It creates a container with default theme properties.
+// class ThemedContainerExample extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     final containerTheme = Theme.of(context).containerTheme;
+
+//     return Container(
+//       padding: containerTheme.defaultPadding,
+//       margin: containerTheme.defaultMargin,
+//       decoration: BoxDecoration(
+//         color: containerTheme.defaultColor,
+//         borderRadius: containerTheme.defaultBorderRadius,
+//       ),
+//       child: Text('This container uses the default ContainerTheme'),
+//     );
+//   }
+// }
+
+/// TextStyleShowcase demonstrates how to use various text styles
+/// in a more realistic scenario, creating a hierarchical layout.
+// class TextStyleShowcase extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         // Main title using display style
+//         Text('Welcome to Our App', style: AppTheme.displayLarge),
+//         SizedBox(height: 10),
+
+//         // Subtitle using headline style
+//         Text('Explore Amazing Features', style: AppTheme.headlineMedium),
+//         SizedBox(height: 20),
+
+//         // Section title
+//         Text('About Us', style: AppTheme.titleLarge),
+//         // Body text
+//         Text(
+//           'We are a team of dedicated professionals working to bring you the best experience.',
+//           style: AppTheme.bodyMedium,
+//         ),
+//         SizedBox(height: 20),
+
+//         // Another section with a list
+//         Text('Our Services', style: AppTheme.titleMedium),
+//         Text('1. Web Development', style: AppTheme.bodyLarge),
+//         Text('2. Mobile App Design', style: AppTheme.bodyLarge),
+//         Text('3. UI/UX Consulting', style: AppTheme.bodyLarge),
+//         SizedBox(height: 20),
+
+//         // Contact information using different text styles
+//         Text('Get in Touch', style: AppTheme.labelLarge),
+//         Text('info@example.com', style: AppTheme.bodySmall),
+//         Text('+1 (123) 456-7890', style: AppTheme.bodySmall),
+//       ],
+//     );
+//   }
+// }
