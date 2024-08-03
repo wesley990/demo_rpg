@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300">
+  <!-- Body -->
+  <path d="M70,120 Q100,110 130,120 L130,280 Q100,290 70,280 Z" fill="#F0E68C" />
+  
+  <!-- Arms -->
+  <path d="M70,120 Q60,180 70,280" stroke="#F0E68C" stroke-width="15" fill="none" />
+  <path d="M130,120 Q140,180 130,280" stroke="#F0E68C" stroke-width="15" fill="none" />
+  
+  <!-- Face -->
+  <circle cx="100" cy="80" r="30" fill="#FFE4B5" />
+  <path d="M90,85 Q100,90 110,85" fill="none" stroke="black" stroke-width="2" />
+  <circle cx="90" cy="75" r="3" fill="black" />
+  <circle cx="110" cy="75" r="3" fill="black" />
+  
+  <!-- Holy symbol on chest -->
+  <g transform="translate(100,150) scale(0.5)">
+    <rect x="-10" y="-50" width="20" height="100" fill="#FFD700" />
+    <rect x="-50" y="-10" width="100" height="20" fill="#FFD700" />
+  </g>
+  
+  <!-- Mace -->
+  <g transform="translate(140,220) rotate(45)">
+    <rect x="-5" y="0" width="10" height="60" fill="#8B4513" />
+    <circle cx="0" cy="0" r="15" fill="#C0C0C0" />
+  </g>
+  
+  <!-- Divine light -->
+  <circle cx="100" cy="150" r="60" fill="none" stroke="#FFFFFF" stroke-width="2">
+    <animate attributeName="r" values="60;70;60" dur="2s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="1;0;1" dur="2s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- Healing effect -->
+  <g>
+    <animateTransform attributeName="transform" attributeType="XML" type="rotate" 
+      from="0 100 150" to="360 100 150" dur="4s" repeatCount="indefinite" />
+    <path d="M100,90 Q140,150 100,210 Q60,150 100,90" fill="#90EE90" opacity="0.5">
+      <animate attributeName="opacity" values="0.5;0;0.5" dur="2s" repeatCount="indefinite" />
+    </path>
+  </g>
+</svg>

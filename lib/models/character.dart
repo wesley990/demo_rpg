@@ -1,4 +1,5 @@
 import 'package:demo_rpg/models/stats.dart';
+import 'package:demo_rpg/models/vocation.dart';
 
 // Using a mixin to add functionality from Stats
 class Character with Stats {
@@ -6,6 +7,7 @@ class Character with Stats {
   final String name;
   final String slogan;
   final int id;
+  final Vocation vocation;
 
   // Private field for encapsulation
   bool _isFavorite;
@@ -16,6 +18,7 @@ class Character with Stats {
     required this.name,
     required this.slogan,
     required this.id,
+    required this.vocation,
     bool isFavorite = false,
   }) : _isFavorite = isFavorite;
 
