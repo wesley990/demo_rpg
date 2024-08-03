@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+/// AppTheme class defines the application's theme, including light and dark modes.
+/// It provides a centralized place to manage colors, text styles, and component themes.
 class AppTheme {
   AppTheme._(); // Private constructor to prevent instantiation
 
-  // Define your seed colors here
+  // Define seed colors for light and dark themes
   static const Color _lightSeedColor = Colors.blue;
   static const Color _darkSeedColor = Colors.blue;
 
-  // Light theme
+  /// Light theme configuration
   static final ThemeData lightTheme =
       _getThemeData(_lightSeedColor, Brightness.light);
 
-  // Dark theme
+  /// Dark theme configuration
   static final ThemeData darkTheme =
       _getThemeData(_darkSeedColor, Brightness.dark);
 
-  // Helper method to generate ThemeData
+  /// Helper method to generate ThemeData based on seed color and brightness
   static ThemeData _getThemeData(Color seedColor, Brightness brightness) {
     final colorScheme = ColorScheme.fromSeed(
       seedColor: seedColor,
@@ -28,6 +30,7 @@ class AppTheme {
       colorScheme: colorScheme,
       brightness: brightness,
     ).copyWith(
+      // Apply custom theme data for various components
       badgeTheme: _badgeTheme(colorScheme),
       bottomAppBarTheme: _bottomAppBarTheme(colorScheme),
       bottomSheetTheme: _bottomSheetTheme(colorScheme),
@@ -61,14 +64,13 @@ class AppTheme {
     );
   }
 
-  // Predefined Container Theme
+  /// Predefined Container Theme
   static ContainerTheme containerTheme(ColorScheme colorScheme) =>
       ContainerTheme(
         defaultPadding: const EdgeInsets.all(8.0),
         defaultMargin: const EdgeInsets.all(0.0),
         defaultBorderRadius: BorderRadius.circular(15.0),
-        defaultColor:
-            colorScheme.primaryContainer, // Use the theme's primary color
+        defaultColor: colorScheme.primaryContainer,
       );
 
   // Text styles
@@ -103,7 +105,7 @@ class AppTheme {
   static const TextStyle labelSmall =
       TextStyle(fontSize: 11, fontWeight: FontWeight.w500);
 
-  // Component themes
+  // Component InputDecorationTheme
   static InputDecorationTheme _inputDecorationTheme(ColorScheme colorScheme) {
     return InputDecorationTheme(
       filled: true,
@@ -359,6 +361,7 @@ class AppTheme {
       );
 }
 
+/// ContainerTheme extends ThemeExtension to provide custom container styling
 class ContainerTheme extends ThemeExtension<ContainerTheme> {
   final EdgeInsetsGeometry defaultPadding;
   final EdgeInsetsGeometry defaultMargin;
@@ -405,10 +408,12 @@ class ContainerTheme extends ThemeExtension<ContainerTheme> {
   }
 }
 
+/// Extension to easily access ContainerTheme from ThemeData
 extension ContainerThemeExtension on ThemeData {
   ContainerTheme get containerTheme => extension<ContainerTheme>()!;
 }
 
+/// StyledContainer is a custom widget that applies the ContainerTheme
 class StyledContainer extends StatelessWidget {
   final Widget child;
   final EdgeInsetsGeometry? padding;
