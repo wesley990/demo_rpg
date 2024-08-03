@@ -1,5 +1,5 @@
 import 'package:demo_rpg/home/home.dart';
-import 'package:demo_rpg/home/theme2.dart';
+import 'package:demo_rpg/home/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';

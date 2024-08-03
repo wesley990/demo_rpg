@@ -1,7 +1,7 @@
 // home screen
 // an appbar with a ttile of "角色"
 // use customscrollview to make the listview scrollable and add a sliverlist
-import 'package:demo_rpg/home/theme2.dart';
+import 'package:demo_rpg/home/theme.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {

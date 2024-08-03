@@ -1,331 +1,444 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-/// AppTheme defines the visual styling for the entire application.
-/// It provides a centralized place for managing colors, typography, and component styles.
-///
-/// This class uses the latest Dart features and follows best practices for theme management in Flutter.
-/// It includes utility methods for easy access to theme properties and supports dynamic theme updates.
 class AppTheme {
-  // Private constructor to prevent instantiation
-  const AppTheme._();
+  AppTheme._(); // Private constructor to prevent instantiation
 
-  /// Generates a light color scheme from a seed color.
-  ///
-  /// This method uses Flutter's [ColorScheme.fromSeed] to create a harmonious color scheme
-  /// based on material design principles.
-  ///
-  /// [seedColor] : The base color used to generate the scheme.
-  static ColorScheme _schemeLight(Color seedColor) =>
-      ColorScheme.fromSeed(seedColor: seedColor, brightness: Brightness.light);
+  // Define your seed colors here
+  static const Color _lightSeedColor = Colors.blue;
+  static const Color _darkSeedColor = Colors.blue;
 
-  /// Generates a dark color scheme from a seed color.
-  ///
-  /// Similar to [_schemeLight], but creates a dark theme variant.
-  ///
-  /// [seedColor] : The base color used to generate the scheme.
-  static ColorScheme _schemeDark(Color seedColor) =>
-      ColorScheme.fromSeed(seedColor: seedColor, brightness: Brightness.dark);
+  // Light theme
+  static final ThemeData lightTheme =
+      _getThemeData(_lightSeedColor, Brightness.light);
 
-  /// Creates a complete [ThemeData] object based on the provided [ColorScheme].
-  ///
-  /// This method encapsulates all theme-related configurations in one place,
-  /// making it easier to maintain consistent styling across the app.
-  ///
-  /// [colorScheme] : The color scheme to base the theme on.
-  static ThemeData _createTheme(ColorScheme colorScheme) {
-    final containerTheme = _containerTheme(colorScheme);
+  // Dark theme
+  static final ThemeData darkTheme =
+      _getThemeData(_darkSeedColor, Brightness.dark);
+
+  // Helper method to generate ThemeData
+  static ThemeData _getThemeData(Color seedColor, Brightness brightness) {
+    final colorScheme = ColorScheme.fromSeed(
+      seedColor: seedColor,
+      brightness: brightness,
+    );
+
     return ThemeData(
       useMaterial3: true,
       colorScheme: colorScheme,
+      brightness: brightness,
+    ).copyWith(
+      badgeTheme: _badgeTheme(colorScheme),
+      bottomAppBarTheme: _bottomAppBarTheme(colorScheme),
+      bottomSheetTheme: _bottomSheetTheme(colorScheme),
+      elevatedButtonTheme: _elevatedButtonTheme(colorScheme),
+      filledButtonTheme: _filledButtonTheme(colorScheme),
+      outlinedButtonTheme: _outlinedButtonTheme(colorScheme),
+      textButtonTheme: _textButtonTheme(colorScheme),
+      floatingActionButtonTheme: _floatingActionButtonTheme(colorScheme),
+      iconButtonTheme: _iconButtonTheme(colorScheme),
+      cardTheme: _cardTheme(colorScheme),
+      checkboxTheme: _checkboxTheme(colorScheme),
+      chipTheme: _chipTheme(colorScheme),
+      dialogTheme: _dialogTheme(colorScheme),
+      dividerTheme: _dividerTheme(colorScheme),
+      listTileTheme: _listTileTheme(colorScheme),
+      navigationBarTheme: _navigationBarTheme(colorScheme),
+      navigationDrawerTheme: _navigationDrawerTheme(colorScheme),
+      navigationRailTheme: _navigationRailTheme(colorScheme),
+      progressIndicatorTheme: _progressIndicatorTheme(colorScheme),
+      radioTheme: _radioTheme(colorScheme),
+      sliderTheme: _sliderTheme(colorScheme),
+      switchTheme: _switchTheme(colorScheme),
+      tabBarTheme: _tabBarTheme(colorScheme),
+      textSelectionTheme: _textSelectionTheme(colorScheme),
+      timePickerTheme: _timePickerTheme(colorScheme),
       appBarTheme: _appBarTheme(colorScheme),
       inputDecorationTheme: _inputDecorationTheme(colorScheme),
-      cardTheme: _cardTheme(colorScheme),
-      textTheme: _textTheme(colorScheme),
-      textButtonTheme: _textButtonTheme(colorScheme),
-      elevatedButtonTheme: _elevatedButtonTheme(colorScheme),
-      outlinedButtonTheme: _outlinedButtonTheme(colorScheme),
-      extensions: [containerTheme],
+      extensions: [
+        containerTheme(colorScheme),
+      ],
     );
   }
 
-  /// The light theme for the application.
-  ///
-  /// This theme is based on an indigo seed color and is suitable for day mode or light environments.
-  static ThemeData lightTheme = _createTheme(_schemeLight(Colors.indigo));
+  // Predefined Container Theme
+  static ContainerTheme containerTheme(ColorScheme colorScheme) =>
+      ContainerTheme(
+        defaultPadding: const EdgeInsets.all(8.0),
+        defaultMargin: const EdgeInsets.all(0.0),
+        defaultBorderRadius: BorderRadius.circular(15.0),
+        defaultColor:
+            colorScheme.primaryContainer, // Use the theme's primary color
+      );
 
-  /// The dark theme for the application.
-  ///
-  /// This theme is based on a blue seed color and is suitable for night mode or dark environments.
-  static ThemeData darkTheme = _createTheme(_schemeDark(Colors.blue));
+  // Text styles
+  static const TextStyle displayLarge =
+      TextStyle(fontSize: 57, fontWeight: FontWeight.normal);
+  static const TextStyle displayMedium =
+      TextStyle(fontSize: 45, fontWeight: FontWeight.normal);
+  static const TextStyle displaySmall =
+      TextStyle(fontSize: 36, fontWeight: FontWeight.normal);
+  static const TextStyle headlineLarge =
+      TextStyle(fontSize: 32, fontWeight: FontWeight.normal);
+  static const TextStyle headlineMedium =
+      TextStyle(fontSize: 28, fontWeight: FontWeight.normal);
+  static const TextStyle headlineSmall =
+      TextStyle(fontSize: 24, fontWeight: FontWeight.normal);
+  static const TextStyle titleLarge =
+      TextStyle(fontSize: 22, fontWeight: FontWeight.normal);
+  static const TextStyle titleMedium =
+      TextStyle(fontSize: 16, fontWeight: FontWeight.w500);
+  static const TextStyle titleSmall =
+      TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
+  static const TextStyle bodyLarge =
+      TextStyle(fontSize: 16, fontWeight: FontWeight.normal);
+  static const TextStyle bodyMedium =
+      TextStyle(fontSize: 14, fontWeight: FontWeight.normal);
+  static const TextStyle bodySmall =
+      TextStyle(fontSize: 12, fontWeight: FontWeight.normal);
+  static const TextStyle labelLarge =
+      TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
+  static const TextStyle labelMedium =
+      TextStyle(fontSize: 12, fontWeight: FontWeight.w500);
+  static const TextStyle labelSmall =
+      TextStyle(fontSize: 11, fontWeight: FontWeight.w500);
 
-  // Component-specific theme methods
+  // Component themes
+  static InputDecorationTheme _inputDecorationTheme(ColorScheme colorScheme) {
+    return InputDecorationTheme(
+      filled: true,
+      fillColor: colorScheme.surface,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: BorderSide(
+          color: colorScheme.onSurface,
+        ),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: BorderSide(
+          color: colorScheme.primary,
+        ),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: BorderSide(
+          color: colorScheme.onSurface.withOpacity(0.5),
+        ),
+      ),
+      labelStyle: TextStyle(
+        color: colorScheme.onSurface,
+      ),
+      hintStyle: TextStyle(
+        color: colorScheme.onSurface.withOpacity(0.5),
+      ),
+    );
+  }
 
-  /// Defines the appearance of [AppBar] widgets.
-  ///
-  /// Customizes the app bar to use the secondary color from the color scheme.
-  static AppBarTheme _appBarTheme(ColorScheme colorScheme) => AppBarTheme(
+  // Updated theme methods
+  static BadgeThemeData _badgeTheme(ColorScheme colorScheme) => BadgeThemeData(
         backgroundColor: colorScheme.secondary,
-        foregroundColor: colorScheme.onSecondary,
+        textColor: colorScheme.onSecondary,
+      );
+
+  static BottomAppBarTheme _bottomAppBarTheme(ColorScheme colorScheme) =>
+      BottomAppBarTheme(
+        color: colorScheme.surface,
         elevation: 0,
       );
 
-  /// Defines the appearance of input fields.
-  ///
-  /// Customizes input decorations with rounded corners and scheme-appropriate colors.
-  static InputDecorationTheme _inputDecorationTheme(ColorScheme colorScheme) =>
-      InputDecorationTheme(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: colorScheme.onPrimary),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: colorScheme.onPrimary),
-        ),
-        fillColor: colorScheme.surface,
-      );
-
-  /// Defines the appearance of [Card] widgets.
-  ///
-  /// Sets up cards with rounded corners and a slight elevation.
-  static CardTheme _cardTheme(ColorScheme colorScheme) => CardTheme(
-        color: colorScheme.surface,
-        elevation: 2,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      );
-
-  /// Defines the text styles for the application.
-  ///
-  /// Establishes a hierarchy of text styles with consistent sizing and coloring.
-  static TextTheme _textTheme(ColorScheme colorScheme) => TextTheme(
-        titleLarge: TextStyle(
-          fontSize: 40,
-          fontWeight: FontWeight.bold,
-          color: colorScheme.onPrimary,
-        ),
-        titleMedium: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-          color: colorScheme.onPrimary,
-        ),
-        bodyMedium: TextStyle(
-          fontSize: 20,
-          color: colorScheme.onPrimary,
+  static BottomSheetThemeData _bottomSheetTheme(ColorScheme colorScheme) =>
+      BottomSheetThemeData(
+        backgroundColor: colorScheme.surface,
+        modalBackgroundColor: colorScheme.surface,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
         ),
       );
 
-  /// Defines the appearance of [TextButton] widgets.
-  ///
-  /// Customizes text buttons with rounded corners and appropriate colors.
-  static TextButtonThemeData _textButtonTheme(ColorScheme colorScheme) =>
-      TextButtonThemeData(
-        style: TextButton.styleFrom(
-          foregroundColor: colorScheme.onPrimaryFixed,
-          backgroundColor: colorScheme.primaryFixed,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        ),
-      );
-
-  /// Defines the appearance of [ElevatedButton] widgets.
-  ///
-  /// Sets up elevated buttons with a distinctive look, including shadows and rounded corners.
   static ElevatedButtonThemeData _elevatedButtonTheme(
           ColorScheme colorScheme) =>
       ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          foregroundColor: colorScheme.onPrimaryFixed,
-          backgroundColor: colorScheme.primaryFixed,
-          elevation: 10,
-          enableFeedback: true,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          backgroundColor: colorScheme.surface,
+          foregroundColor: colorScheme.onSurface,
         ),
       );
 
-  /// Defines the appearance of [OutlinedButton] widgets.
-  ///
-  /// Customizes outlined buttons with a border and appropriate colors.
+  static FilledButtonThemeData _filledButtonTheme(ColorScheme colorScheme) =>
+      FilledButtonThemeData(
+        style: FilledButton.styleFrom(
+          backgroundColor: colorScheme.surface,
+          foregroundColor: colorScheme.onSurface,
+        ),
+      );
+
   static OutlinedButtonThemeData _outlinedButtonTheme(
           ColorScheme colorScheme) =>
       OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          foregroundColor: colorScheme.primaryFixed,
-          side: BorderSide(color: colorScheme.primaryFixed),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          backgroundColor: colorScheme.surface,
+          foregroundColor: colorScheme.onSurface,
+          side: BorderSide(color: colorScheme.outline),
         ),
       );
 
-  /// Defines the custom container theme.
-  ///
-  /// Creates a consistent style for container widgets, including padding, margins, and shadows.
-  static ContainerThemeData _containerTheme(ColorScheme colorScheme) =>
-      ContainerThemeData(
+  static TextButtonThemeData _textButtonTheme(ColorScheme colorScheme) =>
+      TextButtonThemeData(
+        style: TextButton.styleFrom(
+          backgroundColor: colorScheme.surface,
+          foregroundColor: colorScheme.onSurface,
+        ),
+      );
+
+  static FloatingActionButtonThemeData _floatingActionButtonTheme(
+          ColorScheme colorScheme) =>
+      FloatingActionButtonThemeData(
+        backgroundColor: colorScheme.primary,
+        foregroundColor: colorScheme.onPrimary,
+      );
+
+  static IconButtonThemeData _iconButtonTheme(ColorScheme colorScheme) =>
+      IconButtonThemeData(
+        style: IconButton.styleFrom(
+          foregroundColor: colorScheme.primary,
+        ),
+      );
+
+  static CardTheme _cardTheme(ColorScheme colorScheme) => CardTheme(
         color: colorScheme.surface,
-        padding: const EdgeInsets.all(16),
-        margin: const EdgeInsets.symmetric(vertical: 8),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-              color: colorScheme.shadow.withOpacity(0.1),
-              blurRadius: 4,
-              offset: const Offset(0, 2),
-            ),
-          ],
+        shadowColor: colorScheme.shadow,
+        elevation: 1,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      );
+
+  static CheckboxThemeData _checkboxTheme(ColorScheme colorScheme) =>
+      CheckboxThemeData(
+        fillColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return colorScheme.primary;
+          }
+          return colorScheme.surface;
+        }),
+        checkColor: WidgetStateProperty.all(colorScheme.onPrimary),
+      );
+
+  static ChipThemeData _chipTheme(ColorScheme colorScheme) => ChipThemeData(
+        backgroundColor: colorScheme.surface,
+        deleteIconColor: colorScheme.onSurface,
+        labelStyle: TextStyle(color: colorScheme.onSurface),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      );
+
+  static DialogTheme _dialogTheme(ColorScheme colorScheme) => DialogTheme(
+        backgroundColor: colorScheme.surface,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      );
+
+  static DividerThemeData _dividerTheme(ColorScheme colorScheme) =>
+      DividerThemeData(
+        color: colorScheme.outline,
+        thickness: 1,
+      );
+
+  static ListTileThemeData _listTileTheme(ColorScheme colorScheme) =>
+      ListTileThemeData(
+        tileColor: colorScheme.surface,
+        iconColor: colorScheme.primary,
+        textColor: colorScheme.onSurface,
+      );
+
+  static NavigationBarThemeData _navigationBarTheme(ColorScheme colorScheme) =>
+      NavigationBarThemeData(
+        backgroundColor: colorScheme.surface,
+        indicatorColor: colorScheme.primaryContainer,
+        labelTextStyle:
+            WidgetStateProperty.all(TextStyle(color: colorScheme.onSurface)),
+      );
+
+  static NavigationDrawerThemeData _navigationDrawerTheme(
+          ColorScheme colorScheme) =>
+      NavigationDrawerThemeData(
+        backgroundColor: colorScheme.surface,
+        indicatorColor: colorScheme.primaryContainer,
+      );
+
+  static NavigationRailThemeData _navigationRailTheme(
+          ColorScheme colorScheme) =>
+      NavigationRailThemeData(
+        backgroundColor: colorScheme.surface,
+        selectedIconTheme: IconThemeData(color: colorScheme.primary),
+        unselectedIconTheme: IconThemeData(color: colorScheme.onSurface),
+      );
+
+  static ProgressIndicatorThemeData _progressIndicatorTheme(
+          ColorScheme colorScheme) =>
+      ProgressIndicatorThemeData(
+        color: colorScheme.primary,
+        linearTrackColor: colorScheme.primaryContainer,
+      );
+
+  static RadioThemeData _radioTheme(ColorScheme colorScheme) => RadioThemeData(
+        fillColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return colorScheme.primary;
+          }
+          return colorScheme.onSurface;
+        }),
+      );
+
+  static SliderThemeData _sliderTheme(ColorScheme colorScheme) =>
+      SliderThemeData(
+        activeTrackColor: colorScheme.primary,
+        inactiveTrackColor: colorScheme.primaryContainer,
+        thumbColor: colorScheme.primary,
+        overlayColor: colorScheme.primary.withOpacity(0.12),
+      );
+
+  static SwitchThemeData _switchTheme(ColorScheme colorScheme) =>
+      SwitchThemeData(
+        thumbColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return colorScheme.primary;
+          }
+          return colorScheme.outline;
+        }),
+        trackColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return colorScheme.primaryContainer;
+          }
+          return colorScheme.surfaceContainerHighest;
+        }),
+      );
+
+  static TabBarTheme _tabBarTheme(ColorScheme colorScheme) => TabBarTheme(
+        labelColor: colorScheme.primary,
+        unselectedLabelColor: colorScheme.onSurface,
+        indicator: UnderlineTabIndicator(
+          borderSide: BorderSide(color: colorScheme.primary, width: 2),
         ),
       );
 
-  // Utility methods for accessing theme properties
+  static TextSelectionThemeData _textSelectionTheme(ColorScheme colorScheme) =>
+      TextSelectionThemeData(
+        cursorColor: colorScheme.primary,
+        selectionColor: colorScheme.primary.withOpacity(0.2),
+        selectionHandleColor: colorScheme.primary,
+      );
 
-  /// Returns the [TextStyle] for large titles.
-  ///
-  /// This method provides easy access to the large title style from the current theme.
-  static TextStyle titleLarge(BuildContext context) =>
-      Theme.of(context).textTheme.titleLarge!;
+  static TimePickerThemeData _timePickerTheme(ColorScheme colorScheme) =>
+      TimePickerThemeData(
+        backgroundColor: colorScheme.surface,
+        hourMinuteColor: colorScheme.primaryContainer,
+        hourMinuteTextColor: colorScheme.onPrimaryContainer,
+        dialHandColor: colorScheme.primary,
+        dialBackgroundColor: colorScheme.primaryContainer,
+      );
 
-  /// Returns the [TextStyle] for medium body text.
-  ///
-  /// This method provides easy access to the medium body text style from the current theme.
-  static TextStyle bodyMedium(BuildContext context) =>
-      Theme.of(context).textTheme.bodyMedium!;
-
-  /// Returns the [TextStyle] for medium titles.
-  ///
-  /// This method provides easy access to the medium title style from the current theme.
-  static TextStyle titleMedium(BuildContext context) =>
-      Theme.of(context).textTheme.titleMedium!;
-
-  /// Returns the color for containers.
-  ///
-  /// This method provides easy access to the primary color from the current theme,
-  /// which is used as the default container color.
-  static Color colorContainer(BuildContext context) =>
-      Theme.of(context).colorScheme.primary;
-
-  /// Returns the custom [ContainerThemeData].
-  ///
-  /// This method provides easy access to the custom container theme data from the current theme.
-  static ContainerThemeData containerTheme(BuildContext context) =>
-      Theme.of(context).extension<ContainerThemeData>()!;
-
-  /// Updates both light and dark themes with a new seed color.
-  ///
-  /// This method allows for dynamic theme updates at runtime.
-  ///
-  /// [newSeedColor] : The new base color to use for generating the updated color schemes.
-  static void updateThemes(Color newSeedColor) {
-    lightTheme = _createTheme(_schemeLight(newSeedColor));
-    darkTheme = _createTheme(_schemeDark(newSeedColor));
-  }
+  static AppBarTheme _appBarTheme(ColorScheme colorScheme) => AppBarTheme(
+        backgroundColor: colorScheme.primary,
+        foregroundColor: colorScheme.onPrimary,
+        elevation: 0,
+        // toolbarHeight: 40,
+        titleTextStyle: TextStyle(
+          fontSize: 40,
+          fontWeight: FontWeight.bold,
+          color: colorScheme.onPrimary,
+        ),
+        iconTheme: IconThemeData(
+          color: colorScheme.onPrimary,
+        ),
+        actionsIconTheme: IconThemeData(
+          color: colorScheme.onPrimary,
+        ),
+        centerTitle: true,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: colorScheme.primary,
+          statusBarIconBrightness: Brightness.light,
+        ),
+      );
 }
 
-/// Custom theme extension for container styling.
-///
-/// This class defines a set of properties that can be used to style container widgets consistently
-/// throughout the app. It extends [ThemeExtension] to integrate seamlessly with Flutter's theming system.
-class ContainerThemeData extends ThemeExtension<ContainerThemeData> {
-  final Color? color;
-  final EdgeInsetsGeometry? padding;
-  final EdgeInsetsGeometry? margin;
-  final BoxDecoration? decoration;
+class ContainerTheme extends ThemeExtension<ContainerTheme> {
+  final EdgeInsetsGeometry defaultPadding;
+  final EdgeInsetsGeometry defaultMargin;
+  final BorderRadius defaultBorderRadius;
+  final Color defaultColor;
 
-  /// Creates a [ContainerThemeData] instance.
-  ///
-  /// All parameters are optional and can be specified to customize the container appearance.
-  const ContainerThemeData({
-    this.color,
-    this.padding,
-    this.margin,
-    this.decoration,
+  ContainerTheme({
+    required this.defaultPadding,
+    required this.defaultMargin,
+    required this.defaultBorderRadius,
+    required this.defaultColor,
   });
 
   @override
-  ContainerThemeData copyWith({
-    Color? color,
-    EdgeInsetsGeometry? padding,
-    EdgeInsetsGeometry? margin,
-    BoxDecoration? decoration,
-  }) =>
-      ContainerThemeData(
-        color: color ?? this.color,
-        padding: padding ?? this.padding,
-        margin: margin ?? this.margin,
-        decoration: decoration ?? this.decoration,
-      );
+  ThemeExtension<ContainerTheme> copyWith({
+    EdgeInsetsGeometry? defaultPadding,
+    EdgeInsetsGeometry? defaultMargin,
+    BorderRadius? defaultBorderRadius,
+    Color? defaultColor,
+  }) {
+    return ContainerTheme(
+      defaultPadding: defaultPadding ?? this.defaultPadding,
+      defaultMargin: defaultMargin ?? this.defaultMargin,
+      defaultBorderRadius: defaultBorderRadius ?? this.defaultBorderRadius,
+      defaultColor: defaultColor ?? this.defaultColor,
+    );
+  }
 
   @override
-  ContainerThemeData lerp(ThemeExtension<ContainerThemeData>? other, double t) {
-    if (other is! ContainerThemeData) {
+  ThemeExtension<ContainerTheme> lerp(
+      ThemeExtension<ContainerTheme>? other, double t) {
+    if (other is! ContainerTheme) {
       return this;
     }
-    return ContainerThemeData(
-      color: Color.lerp(color, other.color, t),
-      padding: EdgeInsetsGeometry.lerp(padding, other.padding, t),
-      margin: EdgeInsetsGeometry.lerp(margin, other.margin, t),
-      decoration: BoxDecoration.lerp(decoration, other.decoration, t),
+    return ContainerTheme(
+      defaultPadding:
+          EdgeInsetsGeometry.lerp(defaultPadding, other.defaultPadding, t)!,
+      defaultMargin:
+          EdgeInsetsGeometry.lerp(defaultMargin, other.defaultMargin, t)!,
+      defaultBorderRadius:
+          BorderRadius.lerp(defaultBorderRadius, other.defaultBorderRadius, t)!,
+      defaultColor: Color.lerp(defaultColor, other.defaultColor, t)!,
     );
   }
 }
 
-/// Extension on [BuildContext] to provide easy access to theme properties.
-///
-/// This extension allows for more concise syntax when accessing theme properties in widgets.
-extension BuildContextThemeExtension on BuildContext {
-  /// Returns the [TextStyle] for large titles.
-  TextStyle get titleLarge => Theme.of(this).textTheme.titleLarge!;
-
-  /// Returns the [TextStyle] for medium body text.
-  TextStyle get bodyMedium => Theme.of(this).textTheme.bodyMedium!;
-
-  /// Returns the [TextStyle] for medium titles.
-  TextStyle get titleMedium => Theme.of(this).textTheme.titleMedium!;
-
-  /// Returns the color for containers.
-  Color get colorContainer => Theme.of(this).colorScheme.primary;
-
-  /// Returns the custom [ContainerThemeData].
-  ContainerThemeData get containerTheme =>
-      Theme.of(this).extension<ContainerThemeData>()!;
+extension ContainerThemeExtension on ThemeData {
+  ContainerTheme get containerTheme => extension<ContainerTheme>()!;
 }
 
-// Usage examples:
+class StyledContainer extends StatelessWidget {
+  final Widget child;
+  final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? margin;
+  final BorderRadius? borderRadius;
+  final Color? color;
+  final double? elevation;
 
-/// How to use the theme in your main.dart file:
-///
-/// ```dart
-/// void main() {
-///   runApp(MaterialApp(
-///     theme: AppTheme.lightTheme,
-///     darkTheme: AppTheme.darkTheme,
-///     home: MyHomePage(),
-///   ));
-/// }
-/// ```
+  const StyledContainer({
+    super.key,
+    required this.child,
+    this.padding,
+    this.margin,
+    this.borderRadius,
+    this.color,
+    this.elevation,
+  });
 
-/// How to use text styles:
-///
-/// ```dart
-/// Text(
-///   'Hello, World!',
-///   style: context.titleLarge,
-/// )
-/// ```
+  @override
+  Widget build(BuildContext context) {
+    final containerTheme = Theme.of(context).containerTheme;
 
-/// How to use container theme:
-///
-/// ```dart
-/// Container(
-///   decoration: context.containerTheme.decoration,
-///   padding: context.containerTheme.padding,
-///   margin: context.containerTheme.margin,
-///   child: YourWidget(),
-/// )
-/// ```
-
-/// How to update seed color:
-///
-/// ```dart
-/// AppTheme.updateThemes(Colors.green);
-/// ```
+    return Container(
+      padding: padding ?? containerTheme.defaultPadding,
+      margin: margin ?? containerTheme.defaultMargin,
+      decoration: BoxDecoration(
+        color: color ?? containerTheme.defaultColor,
+        borderRadius: borderRadius ?? containerTheme.defaultBorderRadius,
+      ),
+      child: child,
+    );
+  }
+}
