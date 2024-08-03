@@ -198,6 +198,8 @@ class AppTheme {
       FloatingActionButtonThemeData(
         backgroundColor: colorScheme.primary,
         foregroundColor: colorScheme.onPrimary,
+        enableFeedback: true,
+        elevation: 20,
       );
 
   static IconButtonThemeData _iconButtonTheme(ColorScheme colorScheme) =>
