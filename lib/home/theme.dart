@@ -29,6 +29,7 @@ class AppTheme {
       useMaterial3: true,
       colorScheme: colorScheme,
       brightness: brightness,
+      textTheme: textTheme,
     ).copyWith(
       // Apply custom theme data for various components
       badgeTheme: _badgeTheme(colorScheme),
@@ -341,7 +342,7 @@ class ContainerTheme extends ThemeExtension<ContainerTheme> {
   });
 
   @override
-  ThemeExtension<ContainerTheme> copyWith({
+  ContainerTheme copyWith({
     EdgeInsetsGeometry? defaultPadding,
     EdgeInsetsGeometry? defaultMargin,
     BorderRadius? defaultBorderRadius,
@@ -356,8 +357,7 @@ class ContainerTheme extends ThemeExtension<ContainerTheme> {
   }
 
   @override
-  ThemeExtension<ContainerTheme> lerp(
-      ThemeExtension<ContainerTheme>? other, double t) {
+  ContainerTheme lerp(ThemeExtension<ContainerTheme>? other, double t) {
     if (other is! ContainerTheme) {
       return this;
     }
