@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class AppTheme {
   AppTheme._(); // Private constructor to prevent instantiation
@@ -64,7 +65,7 @@ class AppTheme {
   static ContainerTheme containerTheme(ColorScheme colorScheme) =>
       ContainerTheme(
         defaultPadding: const EdgeInsets.all(8.0),
-        defaultMargin: const EdgeInsets.all(8.0),
+        defaultMargin: const EdgeInsets.all(0.0),
         defaultBorderRadius: BorderRadius.circular(15.0),
         defaultColor:
             colorScheme.primaryContainer, // Use the theme's primary color
@@ -85,16 +86,16 @@ class AppTheme {
       TextStyle(fontSize: 24, fontWeight: FontWeight.normal);
   static const TextStyle titleLarge =
       TextStyle(fontSize: 22, fontWeight: FontWeight.normal);
+  static const TextStyle titleMedium =
+      TextStyle(fontSize: 16, fontWeight: FontWeight.w500);
+  static const TextStyle titleSmall =
+      TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
   static const TextStyle bodyLarge =
       TextStyle(fontSize: 16, fontWeight: FontWeight.normal);
   static const TextStyle bodyMedium =
       TextStyle(fontSize: 14, fontWeight: FontWeight.normal);
   static const TextStyle bodySmall =
       TextStyle(fontSize: 12, fontWeight: FontWeight.normal);
-  static const TextStyle titleMedium =
-      TextStyle(fontSize: 16, fontWeight: FontWeight.w500);
-  static const TextStyle titleSmall =
-      TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
   static const TextStyle labelLarge =
       TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
   static const TextStyle labelMedium =
@@ -338,6 +339,23 @@ class AppTheme {
         backgroundColor: colorScheme.primary,
         foregroundColor: colorScheme.onPrimary,
         elevation: 0,
+        // toolbarHeight: 40,
+        titleTextStyle: TextStyle(
+          fontSize: 40,
+          fontWeight: FontWeight.bold,
+          color: colorScheme.onPrimary,
+        ),
+        iconTheme: IconThemeData(
+          color: colorScheme.onPrimary,
+        ),
+        actionsIconTheme: IconThemeData(
+          color: colorScheme.onPrimary,
+        ),
+        centerTitle: true,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: colorScheme.primary,
+          statusBarIconBrightness: Brightness.light,
+        ),
       );
 }
 

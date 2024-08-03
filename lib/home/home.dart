@@ -16,7 +16,8 @@ class HomeScreen extends StatelessWidget {
             pinned: false,
             snap: true,
             floating: true,
-            expandedHeight: 100.0,
+            expandedHeight: 40.0,
+            title: Text('角色'),
             // leading: IconButton(
             //   icon: const Icon(Icons.menu),
             //   onPressed: () {},
