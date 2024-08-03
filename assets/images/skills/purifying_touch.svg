@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="purifyGlow" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#87CEFA;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#4169E1;stop-opacity:0" />
+    </radialGradient>
+    <filter id="purifyBlur">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" />
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <circle cx="50" cy="50" r="48" fill="#F0F8FF" />
+  
+  <!-- Purifying aura -->
+  <circle cx="50" cy="50" r="40" fill="url(#purifyGlow)" filter="url(#purifyBlur)">
+    <animate attributeName="r" values="38;40;38" dur="3s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.8;1;0.8" dur="3s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- Hand outline -->
+  <path d="M30 70 Q40 60 50 70 T70 70 Q75 60 70 50 Q65 40 60 45 Q55 35 50 40 Q45 35 40 45 Q35 40 30 50 Q25 60 30 70 Z" fill="#FFFFFF" stroke="#4169E1" stroke-width="2" />
+  
+  <!-- Purification symbol -->
+  <circle cx="50" cy="50" r="10" fill="none" stroke="#4169E1" stroke-width="2">
+    <animate attributeName="r" values="8;10;8" dur="2s" repeatCount="indefinite" />
+  </circle>
+  <path d="M50 40 V60 M40 50 H60" stroke="#4169E1" stroke-width="2" />
+  
+  <!-- Purifying particles -->
+  <g fill="#FFFFFF" filter="url(#purifyBlur)">
+    <circle cx="40" cy="30" r="2">
+      <animate attributeName="cy" values="30;25;30" dur="2s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="1;0;1" dur="2s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="60" cy="30" r="2">
+      <animate attributeName="cy" values="30;25;30" dur="2s" repeatCount="indefinite" begin="0.5s" />
+      <animate attributeName="opacity" values="1;0;1" dur="2s" repeatCount="indefinite" begin="0.5s" />
+    </circle>
+    <circle cx="35" cy="70" r="2">
+      <animate attributeName="cy" values="70;65;70" dur="2s" repeatCount="indefinite" begin="1s" />
+      <animate attributeName="opacity" values="1;0;1" dur="2s" repeatCount="indefinite" begin="1s" />
+    </circle>
+    <circle cx="65" cy="70" r="2">
+      <animate attributeName="cy" values="70;65;70" dur="2s" repeatCount="indefinite" begin="1.5s" />
+      <animate attributeName="opacity" values="1;0;1" dur="2s" repeatCount="indefinite" begin="1.5s" />
+    </circle>
+  </g>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="metallic" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e0e0e0;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#b0b0b0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#808080;stop-opacity:1" />
+    </linearGradient>
+    <filter id="inner-shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur" />
+      <feOffset dy="2" dx="2" />
+      <feComposite in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowDiff" />
+      <feFlood flood-color="#000000" flood-opacity="0.75" />
+      <feComposite in2="shadowDiff" operator="in" />
+      <feComposite in2="SourceGraphic" operator="over" />
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <circle cx="50" cy="50" r="48" fill="#f0f0f0" />
+  
+  <!-- Central shield -->
+  <path d="M35 20 L65 20 Q75 50 65 80 L35 80 Q25 50 35 20 Z" fill="url(#metallic)" stroke="#404040" stroke-width="2" filter="url(#inner-shadow)" />
+  
+  <!-- Left shield -->
+  <path d="M10 30 L30 25 Q35 50 30 75 L10 70 Q5 50 10 30 Z" fill="url(#metallic)" stroke="#404040" stroke-width="2" filter="url(#inner-shadow)" />
+  
+  <!-- Right shield -->
+  <path d="M90 30 L70 25 Q65 50 70 75 L90 70 Q95 50 90 30 Z" fill="url(#metallic)" stroke="#404040" stroke-width="2" filter="url(#inner-shadow)" />
+  
+  <!-- Emblem on central shield -->
+  <circle cx="50" cy="50" r="10" fill="#4a4a4a" />
+  <path d="M45 50 L55 50 M50 45 L50 55" stroke="#e0e0e0" stroke-width="2" stroke-linecap="round" />
+  
+  <!-- Pulsating defensive aura -->
+  <circle cx="50" cy="50" r="45" fill="none" stroke="#4a90e2" stroke-width="3" opacity="0.5">
+    <animate attributeName="r" values="43;45;44" dur="2s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.3;0.5;0.4" dur="2s" repeatCount="indefinite" />
+  </circle>
+</svg>

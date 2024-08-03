@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="timeStream" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#4b0082;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#9400d3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4b0082;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <circle cx="50" cy="50" r="48" fill="#000033" />
+  
+  <!-- Warped clock face -->
+  <circle cx="50" cy="50" r="40" fill="none" stroke="#8a2be2" stroke-width="2" stroke-dasharray="2 4" />
+  
+  <!-- Distorted time streams -->
+  <path d="M10 50 Q50 20 90 50 Q50 80 10 50" fill="none" stroke="url(#timeStream)" stroke-width="4" opacity="0.7" filter="url(glow)">
+    <animate attributeName="d" 
+             values="M10 50 Q50 20 90 50 Q50 80 10 50;
+                     M10 50 Q50 80 90 50 Q50 20 10 50;
+                     M10 50 Q50 20 90 50 Q50 80 10 50" 
+             dur="10s" repeatCount="indefinite" />
+  </path>
+  
+  <!-- Warped clock hands -->
+  <g stroke="#ffffff" stroke-width="2" stroke-linecap="round" filter="url(#glow)">
+    <path d="M50 50 Q60 30 70 20">
+      <animate attributeName="d" 
+               values="M50 50 Q60 30 70 20;
+                       M50 50 Q70 40 80 50;
+                       M50 50 Q60 70 50 80;
+                       M50 50 Q30 60 20 50;
+                       M50 50 Q60 30 70 20" 
+               dur="5s" repeatCount="indefinite" />
+    </path>
+    <path d="M50 50 Q30 60 20 50">
+      <animate attributeName="d" 
+               values="M50 50 Q30 60 20 50;
+                       M50 50 Q60 70 50 80;
+                       M50 50 Q70 40 80 50;
+                       M50 50 Q60 30 70 20;
+                       M50 50 Q30 60 20 50" 
+               dur="10s" repeatCount="indefinite" />
+    </path>
+  </g>
+  
+  <!-- Floating time symbols -->
+  <g fill="#ffffff" font-family="Arial" font-size="10" filter="url(#glow)">
+    <text x="25" y="30">
+      <animate attributeName="opacity" values="0;1;0" dur="3s" repeatCount="indefinite" />
+      ⏰
+    </text>
+    <text x="75" y="30">
+      <animate attributeName="opacity" values="0;1;0" dur="3s" repeatCount="indefinite" begin="1s" />
+      ⌛
+    </text>
+    <text x="25" y="70">
+      <animate attributeName="opacity" values="0;1;0" dur="3s" repeatCount="indefinite" begin="2s" />
+      ⏳
+    </text>
+    <text x="75" y="70">
+      <animate attributeName="opacity" values="0;1;0" dur="3s" repeatCount="indefinite" begin="1.5s" />
+      🕰️
+    </text>
+  </g>
+  
+  <!-- Central vortex -->
+  <circle cx="50" cy="50" r="10" fill="#9400d3" opacity="0.7">
+    <animate attributeName="r" values="8;10;8" dur="2s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.5;0.7;0.5" dur="2s" repeatCount="indefinite" />
+  </circle>
+</svg>

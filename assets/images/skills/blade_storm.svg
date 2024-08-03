@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="steel" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0f0f0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a0a0a0;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <circle cx="50" cy="50" r="48" fill="#f0f0f0" />
+  
+  <!-- Circular motion path -->
+  <circle cx="50" cy="50" r="40" fill="none" stroke="#d3d3d3" stroke-width="2" stroke-dasharray="5,5" />
+  
+  <!-- Swords -->
+  <g>
+    <path d="M50 10 L55 15 L50 80 L45 15 Z" fill="url(#steel)" stroke="#404040" stroke-width="1">
+      <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="2s" repeatCount="indefinite" />
+    </path>
+    <path d="M50 10 L55 15 L50 80 L45 15 Z" fill="url(#steel)" stroke="#404040" stroke-width="1">
+      <animateTransform attributeName="transform" type="rotate" from="72 50 50" to="432 50 50" dur="2s" repeatCount="indefinite" />
+    </path>
+    <path d="M50 10 L55 15 L50 80 L45 15 Z" fill="url(#steel)" stroke="#404040" stroke-width="1">
+      <animateTransform attributeName="transform" type="rotate" from="144 50 50" to="504 50 50" dur="2s" repeatCount="indefinite" />
+    </path>
+    <path d="M50 10 L55 15 L50 80 L45 15 Z" fill="url(#steel)" stroke="#404040" stroke-width="1">
+      <animateTransform attributeName="transform" type="rotate" from="216 50 50" to="576 50 50" dur="2s" repeatCount="indefinite" />
+    </path>
+    <path d="M50 10 L55 15 L50 80 L45 15 Z" fill="url(#steel)" stroke="#404040" stroke-width="1">
+      <animateTransform attributeName="transform" type="rotate" from="288 50 50" to="648 50 50" dur="2s" repeatCount="indefinite" />
+    </path>
+  </g>
+  
+  <!-- Center swirl -->
+  <circle cx="50" cy="50" r="10" fill="#4a4a4a">
+    <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="-360 50 50" dur="2s" repeatCount="indefinite" />
+  </circle>
+  <path d="M45 50 Q50 45 55 50 Q50 55 45 50 Z" fill="#f0f0f0">
+    <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="-360 50 50" dur="2s" repeatCount="indefinite" />
+  </path>
+</svg>

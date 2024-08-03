@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="shadowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#000000;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#4B0082;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:1" />
+    </linearGradient>
+    <filter id="blur">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1" />
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="100" height="100" fill="#1a1a1a" />
+  
+  <!-- Shadow trail -->
+  <path d="M10 70 Q30 60 50 70 T90 70" fill="none" stroke="url(#shadowGradient)" stroke-width="15" stroke-linecap="round" filter="url(#blur)" opacity="0.5">
+    <animate attributeName="d" 
+             values="M10 70 Q30 60 50 70 T90 70;
+                     M10 70 Q30 80 50 70 T90 70;
+                     M10 70 Q30 60 50 70 T90 70" 
+             dur="2s" repeatCount="indefinite" />
+  </path>
+  
+  <!-- Rogue silhouette (start position) -->
+  <path d="M5 65 Q10 60 15 65 Q17 70 15 75 L13 78 H7 L5 75 Q3 70 5 65 Z" fill="#2E0854">
+    <animate attributeName="opacity" values="1;0" dur="0.5s" begin="0s" fill="freeze" />
+  </path>
+  
+  <!-- Rogue silhouette (end position) -->
+  <path d="M85 65 Q90 60 95 65 Q97 70 95 75 L93 78 H87 L85 75 Q83 70 85 65 Z" fill="#2E0854">
+    <animate attributeName="opacity" values="0;1" dur="0.5s" begin="0.5s" fill="freeze" />
+  </path>
+  
+  <!-- Moving shadow particles -->
+  <g>
+    <circle cx="20" cy="70" r="1" fill="#9370DB">
+      <animate attributeName="cx" values="20;90" dur="1s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="1;0" dur="1s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="25" cy="72" r="1" fill="#9370DB">
+      <animate attributeName="cx" values="25;95" dur="1s" repeatCount="indefinite" begin="0.2s" />
+      <animate attributeName="opacity" values="1;0" dur="1s" repeatCount="indefinite" begin="0.2s" />
+    </circle>
+    <circle cx="15" cy="68" r="1" fill="#9370DB">
+      <animate attributeName="cx" values="15;85" dur="1s" repeatCount="indefinite" begin="0.4s" />
+      <animate attributeName="opacity" values="1;0" dur="1s" repeatCount="indefinite" begin="0.4s" />
+    </circle>
+  </g>
+  
+  <!-- Fading footsteps -->
+  <g fill="#4B0082" opacity="0.7">
+    <path d="M30 75 Q32 73 34 75 Q35 77 34 79 L33 80 H31 L30 79 Q29 77 30 75 Z">
+      <animate attributeName="opacity" values="0.7;0" dur="1s" begin="0s" fill="freeze" />
+    </path>
+    <path d="M50 75 Q52 73 54 75 Q55 77 54 79 L53 80 H51 L50 79 Q49 77 50 75 Z">
+      <animate attributeName="opacity" values="0.7;0" dur="1s" begin="0.3s" fill="freeze" />
+    </path>
+    <path d="M70 75 Q72 73 74 75 Q75 77 74 79 L73 80 H71 L70 79 Q69 77 70 75 Z">
+      <animate attributeName="opacity" values="0.7;0" dur="1s" begin="0.6s" fill="freeze" />
+    </path>
+  </g>
+</svg>

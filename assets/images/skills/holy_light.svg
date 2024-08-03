@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="holyGlow" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#FFD700;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#FFA500;stop-opacity:0" />
+    </radialGradient>
+    <filter id="blur">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" />
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <circle cx="50" cy="50" r="48" fill="#4B0082" />
+  
+  <!-- Outer glow -->
+  <circle cx="50" cy="50" r="40" fill="url(#holyGlow)" filter="url(#blur)">
+    <animate attributeName="r" values="38;40;38" dur="3s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.8;1;0.8" dur="3s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- Light rays -->
+  <g stroke="#FFD700" stroke-width="2" opacity="0.7">
+    <line x1="50" y1="10" x2="50" y2="25">
+      <animate attributeName="y2" values="25;20;25" dur="2s" repeatCount="indefinite" />
+    </line>
+    <line x1="50" y1="75" x2="50" y2="90">
+      <animate attributeName="y1" values="75;80;75" dur="2s" repeatCount="indefinite" />
+    </line>
+    <line x1="10" y1="50" x2="25" y2="50">
+      <animate attributeName="x2" values="25;20;25" dur="2s" repeatCount="indefinite" />
+    </line>
+    <line x1="75" y1="50" x2="90" y2="50">
+      <animate attributeName="x1" values="75;80;75" dur="2s" repeatCount="indefinite" />
+    </line>
+    <line x1="22" y1="22" x2="33" y2="33">
+      <animate attributeName="x2" values="33;30;33" dur="2s" repeatCount="indefinite" />
+      <animate attributeName="y2" values="33;30;33" dur="2s" repeatCount="indefinite" />
+    </line>
+    <line x1="78" y1="22" x2="67" y2="33">
+      <animate attributeName="x2" values="67;70;67" dur="2s" repeatCount="indefinite" />
+      <animate attributeName="y2" values="33;30;33" dur="2s" repeatCount="indefinite" />
+    </line>
+    <line x1="22" y1="78" x2="33" y2="67">
+      <animate attributeName="x2" values="33;30;33" dur="2s" repeatCount="indefinite" />
+      <animate attributeName="y2" values="67;70;67" dur="2s" repeatCount="indefinite" />
+    </line>
+    <line x1="78" y1="78" x2="67" y2="67">
+      <animate attributeName="x2" values="67;70;67" dur="2s" repeatCount="indefinite" />
+      <animate attributeName="y2" values="67;70;67" dur="2s" repeatCount="indefinite" />
+    </line>
+  </g>
+  
+  <!-- Central holy symbol -->
+  <path d="M40 45 H60 V55 H55 V65 H45 V55 H40 Z" fill="#FFFFFF">
+    <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite" />
+  </path>
+</svg>

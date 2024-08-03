@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="ice" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00bfff;stop-opacity:1" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Background -->
+  <circle cx="50" cy="50" r="48" fill="#f0f0f0" />
+  
+  <!-- Frost nova -->
+  <g opacity="0.8">
+    <path d="M50 10 L53 50 L50 90 L47 50 Z" fill="url(#ice)">
+      <animateTransform attributeName="transform" type="scale" values="0.1;1;0.1" dur="2s" repeatCount="indefinite" />
+    </path>
+    <path d="M10 50 L50 47 L90 50 L50 53 Z" fill="url(#ice)">
+      <animateTransform attributeName="transform" type="scale" values="0.1;1;0.1" dur="2s" repeatCount="indefinite" />
+    </path>
+    <path d="M22 22 L52 48 L78 78 L48 52 Z" fill="url(#ice)">
+      <animateTransform attributeName="transform" type="scale" values="0.1;1;0.1" dur="2s" repeatCount="indefinite" />
+    </path>
+    <path d="M78 22 L52 48 L22 78 L48 52 Z" fill="url(#ice)">
+      <animateTransform attributeName="transform" type="scale" values="0.1;1;0.1" dur="2s" repeatCount="indefinite" />
+    </path>
+  </g>
+  
+  <!-- Ice crystals -->
+  <g>
+    <path d="M50 30 L55 40 L50 50 L45 40 Z" fill="#ffffff" stroke="#00bfff" stroke-width="1" />
+    <path d="M70 50 L80 55 L90 50 L80 45 Z" fill="#ffffff" stroke="#00bfff" stroke-width="1" />
+    <path d="M30 70 L40 75 L50 70 L40 65 Z" fill="#ffffff" stroke="#00bfff" stroke-width="1" />
+  </g>
+</svg>

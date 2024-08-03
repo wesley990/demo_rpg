@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="smokeGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="10%" style="stop-color:#808080;stop-opacity:0.9" />
+      <stop offset="50%" style="stop-color:#A9A9A9;stop-opacity:0.6" />
+      <stop offset="90%" style="stop-color:#D3D3D3;stop-opacity:0.3" />
+    </radialGradient>
+    <filter id="smokeBlur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" />
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <circle cx="50" cy="50" r="48" fill="#2C3E50" />
+  
+  <!-- Explosion lines -->
+  <g stroke="#E74C3C" stroke-width="2" opacity="0.7">
+    <line x1="50" y1="50" x2="20" y2="20">
+      <animate attributeName="x2" values="50;20;50" dur="0.5s" repeatCount="indefinite" />
+      <animate attributeName="y2" values="50;20;50" dur="0.5s" repeatCount="indefinite" />
+    </line>
+    <line x1="50" y1="50" x2="80" y2="20">
+      <animate attributeName="x2" values="50;80;50" dur="0.5s" repeatCount="indefinite" />
+      <animate attributeName="y2" values="50;20;50" dur="0.5s" repeatCount="indefinite" />
+    </line>
+    <line x1="50" y1="50" x2="80" y2="80">
+      <animate attributeName="x2" values="50;80;50" dur="0.5s" repeatCount="indefinite" />
+      <animate attributeName="y2" values="50;80;50" dur="0.5s" repeatCount="indefinite" />
+    </line>
+    <line x1="50" y1="50" x2="20" y2="80">
+      <animate attributeName="x2" values="50;20;50" dur="0.5s" repeatCount="indefinite" />
+      <animate attributeName="y2" values="50;80;50" dur="0.5s" repeatCount="indefinite" />
+    </line>
+  </g>
+  
+  <!-- Smoke clouds -->
+  <g filter="url(#smokeBlur)">
+    <circle cx="50" cy="50" r="30" fill="url(#smokeGradient)">
+      <animate attributeName="r" values="0;30;25" dur="2s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0;1;0.8" dur="2s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="40" cy="60" r="20" fill="url(#smokeGradient)">
+      <animate attributeName="r" values="0;20;15" dur="2s" repeatCount="indefinite" begin="0.5s" />
+      <animate attributeName="opacity" values="0;1;0.8" dur="2s" repeatCount="indefinite" begin="0.5s" />
+    </circle>
+    <circle cx="60" cy="40" r="25" fill="url(#smokeGradient)">
+      <animate attributeName="r" values="0;25;20" dur="2s" repeatCount="indefinite" begin="1s" />
+      <animate attributeName="opacity" values="0;1;0.8" dur="2s" repeatCount="indefinite" begin="1s" />
+    </circle>
+  </g>
+  
+  <!-- Bomb outline -->
+  <circle cx="50" cy="50" r="15" fill="none" stroke="#ECF0F1" stroke-width="2" opacity="0.7">
+    <animate attributeName="r" values="15;20;15" dur="1s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.7;0;0.7" dur="1s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- Fuse -->
+  <path d="M50 35 Q55 30 60 35" fill="none" stroke="#E67E22" stroke-width="2" stroke-linecap="round">
+    <animate attributeName="d" values="M50 35 Q55 30 60 35; M50 35 Q55 40 60 35; M50 35 Q55 30 60 35" dur="0.5s" repeatCount="indefinite" />
+  </path>
+  
+  <!-- Spark -->
+  <circle cx="60" cy="35" r="2" fill="#F1C40F">
+    <animate attributeName="opacity" values="0;1;0" dur="0.5s" repeatCount="indefinite" />
+  </circle>
+</svg>
