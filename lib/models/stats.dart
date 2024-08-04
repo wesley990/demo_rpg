@@ -20,9 +20,9 @@ mixin Stats {
       Map.from(_stats); // Return a copy to prevent direct modification
 
   // Encapsulation: Getter for stats as a list of maps
-  List<Map<String, String>> get statsAsListOfMap => [
-        for (var entry in _stats.entries) {entry.key: entry.value.toString()}
-      ];
+  List<Map<String, String>> get statsAsListOfMap => statsAsMap.entries
+      .map((entry) => {'title': entry.key, 'value': entry.value.toString()})
+      .toList();
 
   // Template Method Pattern: Defines the algorithm structure for changing stats
   // Single Responsibility Principle: This method is responsible only for changing a stat

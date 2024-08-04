@@ -1,6 +1,8 @@
 import 'package:demo_rpg/models/character.dart';
+import 'package:demo_rpg/screens/profile/stats_table.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:demo_rpg/models/skill.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key, required this.character});
@@ -31,27 +33,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   height: 200,
                 ),
               ),
-              Text(
-                character.name,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: SelectableText(
+                  character.slogan,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontStyle: FontStyle.italic,
+                  ),
                 ),
               ),
               const SizedBox(height: 10),
-              Text(
-                character.slogan,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontStyle: FontStyle.italic,
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: SelectableText(
+                  character.vocation.description,
+                  style: const TextStyle(
+                    fontSize: 16,
+                  ),
                 ),
               ),
-              const SizedBox(height: 10),
-              Text(
-                character.vocation.description,
-                style: const TextStyle(
-                  fontSize: 16,
-                ),
+              StatsTable(
+                character: character,
               ),
             ],
           ), // Add your profile content here
