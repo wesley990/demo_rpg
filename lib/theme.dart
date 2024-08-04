@@ -157,6 +157,7 @@ class AppTheme {
           ColorScheme colorScheme) =>
       ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
+          shape: const StadiumBorder(),
           backgroundColor: colorScheme.surface,
           foregroundColor: colorScheme.onSurface,
         ),

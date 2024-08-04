@@ -1,4 +1,5 @@
 import 'package:demo_rpg/screens/create/create.dart';
+import 'package:demo_rpg/screens/profile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart'; // Add this line to import the package
 
@@ -35,6 +36,15 @@ class HomeScreen extends StatelessWidget {
                   trailing: const Icon(Icons.arrow_forward_ios),
                   title: Text(character.name),
                   subtitle: Text(character.vocation.title),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            ProfileScreen(character: character),
+                      ),
+                    );
+                  },
                 ),
               );
             },

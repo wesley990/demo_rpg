@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:demo_rpg/models/vocation.dart';
 import 'dart:developer';
+import 'package:demo_rpg/models/character.dart';
+
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:uuid/uuid.dart';
+
+var uuid = const Uuid();
 
 class CreateScreen extends StatefulWidget {
   const CreateScreen({super.key});
@@ -13,13 +19,24 @@ class _CreateScreenState extends State<CreateScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _sloganController = TextEditingController();
+  final _nameFocusNode = FocusNode(); // Create a FocusNode for the name field
   Vocation? _selectedVocation;
   bool _formInteracted = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Request focus for the name field when the screen loads
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _nameFocusNode.requestFocus();
+    });
+  }
 
   @override
   void dispose() {
     _nameController.dispose();
     _sloganController.dispose();
+    _nameFocusNode.dispose(); // Dispose the FocusNode
     super.dispose();
   }
 
@@ -36,7 +53,6 @@ class _CreateScreenState extends State<CreateScreen> {
     return isFormValid && isNameValid && isSloganValid && isVocationSelected;
   }
 
-// Update the _isFormValid getter
   bool get _isFormValid {
     return _formInteracted && _validateForm();
   }
@@ -44,9 +60,6 @@ class _CreateScreenState extends State<CreateScreen> {
   void _updateFormState() {
     setState(() {
       _formInteracted = true;
-      // Remove the manual call to validate here
-      // _formKey.currentState?.validate();
-      // Instead, call _validateForm() to update the form state
       _validateForm();
     });
   }
@@ -65,6 +78,8 @@ class _CreateScreenState extends State<CreateScreen> {
           children: [
             TextFormField(
               controller: _nameController,
+              focusNode:
+                  _nameFocusNode, // Assign the FocusNode to the name field
               decoration: const InputDecoration(
                 labelText: 'Name',
                 border: OutlineInputBorder(),
@@ -110,7 +125,7 @@ class _CreateScreenState extends State<CreateScreen> {
 
   String? Function(String?) _validateTextField(String fieldName) {
     return (value) {
-      if (value == null || value!.trim().isEmpty) {
+      if (value == null || value.trim().isEmpty) {
         return 'Please enter a $fieldName';
       }
       return null;
@@ -125,7 +140,6 @@ class _CreateScreenState extends State<CreateScreen> {
           _selectedVocation = vocation;
           _formInteracted = true;
 
-          // print name and slogan of text filed
           log('Name: ${_nameController.text}');
           log('Name nullty: ${_nameController.value}');
           log('Name nullty: ${_nameController.text}');
@@ -133,7 +147,6 @@ class _CreateScreenState extends State<CreateScreen> {
           log('Slogan: ${_sloganController.text}');
           log('Slogan nullty: ${_sloganController.value}');
           log('Slogan nullty: ${_sloganController.text}');
-          // Trigger form validation
           _formKey.currentState?.validate();
           log('_formInteracted: $_formInteracted');
           log('isValid: ${_formKey.currentState?.validate()}');
@@ -146,61 +159,67 @@ class _CreateScreenState extends State<CreateScreen> {
         decoration: BoxDecoration(
           border: Border.all(
             color: isSelected ? Theme.of(context).primaryColor : Colors.grey,
-            width: isSelected ? 2 : 1,
           ),
           borderRadius: BorderRadius.circular(8),
           color: isSelected
               ? Theme.of(context).primaryColor.withOpacity(0.1)
               : null,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Row(
           children: [
-            Text(
-              vocation.title,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: isSelected ? Theme.of(context).primaryColor : null,
+            SvgPicture.asset(
+              'assets/images/vocations/${vocation.image}',
+              width: 140,
+              colorFilter: !isSelected
+                  ? const ColorFilter.mode(Colors.white, BlendMode.saturation)
+                  : null,
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    vocation.title,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: isSelected ? Theme.of(context).primaryColor : null,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    vocation.description,
+                    maxLines: 10,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 4),
+                  Text('Weapon: ${vocation.weapon}'),
+                  Text('Ability: ${vocation.ability}'),
+                ],
               ),
             ),
-            const SizedBox(height: 4),
-            Text(vocation.description),
-            const SizedBox(height: 4),
-            Text('Weapon: ${vocation.weapon}'),
-            Text('Ability: ${vocation.ability}'),
           ],
         ),
       ),
     );
   }
 
-// Update _handleCharacterCreation method
   void _handleCharacterCreation() {
     if (_validateForm()) {
-      // Proceed with character creation
       log('Character created:');
       log('Name: ${_nameController.text}');
       log('Slogan: ${_sloganController.text}');
       log('Vocation: ${_selectedVocation!.title}');
+      characters.add(Character(
+          name: _nameController.text.trim(),
+          slogan: _sloganController.text.trim(),
+          id: uuid.v8g(),
+          vocation:
+              _selectedVocation!)); // Add the null-aware operator '!' to assert that _selectedVocation is not null
     } else {
-      // Show an error message or handle the invalid form state
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please fill all fields correctly')),
       );
     }
   }
 }
-// version 1
-
-// Implemented a Form widget with validation for all fields.
-// Used TextFormField for name and slogan inputs, with validation to ensure they're not empty.
-// Replaced the ListView.builder for vocations with a DropdownButtonFormField for better UX.
-// Added state management to enable/disable the "Create Character" button based on form validity.
-// Included a reminder message when the form is incomplete.
-// Followed modern Flutter practices like using const constructors and proper widget structuring.
-// Implemented proper disposal of controllers in the dispose method.
-// Used Scaffold for better overall structure and to include an AppBar.
-
-// This implementation provides a more user-friendly interface with proper form validation and feedback. The "Create Character" button is disabled until all fields are filled correctly, and a reminder message is displayed when the form is incomplete.
-// To use this updated version, you'll need to ensure that your Vocation enum is properly defined in the models/vocation.dart file. Also, remember to implement the actual character creation logic in the _handleCharacterCreation method when you're ready to proceed with that part of your application.
