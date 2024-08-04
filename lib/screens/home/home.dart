@@ -1,3 +1,4 @@
+import 'package:demo_rpg/screens/create/create.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart'; // Add this line to import the package
 
@@ -38,6 +39,20 @@ class HomeScreen extends StatelessWidget {
               );
             },
             childCount: characters.length,
+          ),
+        ),
+        SliverToBoxAdapter(
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CreateScreen()),
+                );
+              },
+              child: const Text('Create'),
+            ),
           ),
         ),
       ],

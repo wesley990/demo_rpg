@@ -1,4 +1,4 @@
-import 'package:demo_rpg/home/theme.dart';
+import 'package:demo_rpg/theme.dart';
 import 'package:flutter/material.dart';
 
 class SampleScreen extends StatelessWidget {
