@@ -1,4 +1,4 @@
-import 'package:demo_rpg/home/sample_screen.dart';
+import 'package:demo_rpg/home/home.dart';
 import 'package:demo_rpg/home/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -38,7 +38,7 @@ class SelectableRegionExample extends StatelessWidget {
         child: SelectableRegion(
           selectionControls: materialTextSelectionControls,
           focusNode: focusNode,
-          child: const SampleScreen(),
+          child: const HomeScreen(),
         ),
       ),
     );

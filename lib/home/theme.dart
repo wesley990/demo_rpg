@@ -243,8 +243,16 @@ class AppTheme {
   static ListTileThemeData _listTileTheme(ColorScheme colorScheme) =>
       ListTileThemeData(
         tileColor: colorScheme.surface,
-        iconColor: colorScheme.primary,
-        textColor: colorScheme.onSurface,
+        titleTextStyle: TextStyle(
+          color: colorScheme.onSurface,
+          fontSize: textTheme.titleLarge!.fontSize,
+          fontWeight: textTheme.titleLarge!.fontWeight,
+        ),
+        subtitleTextStyle: TextStyle(
+          color: colorScheme.onSurface.withOpacity(0.6),
+          fontSize: textTheme.bodyMedium!.fontSize,
+          fontWeight: textTheme.bodyMedium!.fontWeight,
+        ),
       );
 
   static NavigationBarThemeData _navigationBarTheme(ColorScheme colorScheme) =>
