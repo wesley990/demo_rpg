@@ -1,40 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
   <!-- Body -->
-  <path d="M70,120 Q100,110 130,120 L130,280 Q100,290 70,280 Z" fill="#F0E68C" />
-  
+  <path d="M70,50 Q100,40 130,50 L130,180 Q100,190 70,180 Z" fill="#F0E68C" />
   <!-- Arms -->
-  <path d="M70,120 Q60,180 70,280" stroke="#F0E68C" stroke-width="15" fill="none" />
-  <path d="M130,120 Q140,180 130,280" stroke="#F0E68C" stroke-width="15" fill="none" />
-  
+  <path d="M70,50 Q60,110 70,180" stroke="#F0E68C" stroke-width="15" fill="none" />
+  <path d="M130,50 Q140,110 130,180" stroke="#F0E68C" stroke-width="15" fill="none" />
   <!-- Face -->
-  <circle cx="100" cy="80" r="30" fill="#FFE4B5" />
-  <path d="M90,85 Q100,90 110,85" fill="none" stroke="black" stroke-width="2" />
-  <circle cx="90" cy="75" r="3" fill="black" />
-  <circle cx="110" cy="75" r="3" fill="black" />
-  
+  <circle cx="100" cy="30" r="25" fill="#FFE4B5" />
+  <path d="M90,35 Q100,40 110,35" fill="none" stroke="black" stroke-width="2" />
+  <circle cx="90" cy="25" r="3" fill="black" />
+  <circle cx="110" cy="25" r="3" fill="black" />
   <!-- Holy symbol on chest -->
-  <g transform="translate(100,150) scale(0.5)">
+  <g transform="translate(100,90) scale(0.4)">
     <rect x="-10" y="-50" width="20" height="100" fill="#FFD700" />
     <rect x="-50" y="-10" width="100" height="20" fill="#FFD700" />
   </g>
-  
   <!-- Mace -->
-  <g transform="translate(140,220) rotate(45)">
-    <rect x="-5" y="0" width="10" height="60" fill="#8B4513" />
-    <circle cx="0" cy="0" r="15" fill="#C0C0C0" />
+  <g transform="translate(140,140) rotate(45)">
+    <rect x="-5" y="0" width="10" height="50" fill="#8B4513" />
+    <circle cx="0" cy="0" r="12" fill="#C0C0C0" />
   </g>
-  
   <!-- Divine light -->
-  <circle cx="100" cy="150" r="60" fill="none" stroke="#FFFFFF" stroke-width="2">
-    <animate attributeName="r" values="60;70;60" dur="2s" repeatCount="indefinite" />
+  <circle cx="100" cy="90" r="50" fill="none" stroke="#FFFFFF" stroke-width="2">
+    <animate attributeName="r" values="50;60;50" dur="2s" repeatCount="indefinite" />
     <animate attributeName="opacity" values="1;0;1" dur="2s" repeatCount="indefinite" />
   </circle>
-  
   <!-- Healing effect -->
   <g>
-    <animateTransform attributeName="transform" attributeType="XML" type="rotate" 
-      from="0 100 150" to="360 100 150" dur="4s" repeatCount="indefinite" />
-    <path d="M100,90 Q140,150 100,210 Q60,150 100,90" fill="#90EE90" opacity="0.5">
+    <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 100 90" to="360 100 90" dur="4s" repeatCount="indefinite" />
+    <path d="M100,40 Q135,90 100,140 Q65,90 100,40" fill="#90EE90" opacity="0.5">
       <animate attributeName="opacity" values="0.5;0;0.5" dur="2s" repeatCount="indefinite" />
     </path>
   </g>

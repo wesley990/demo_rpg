@@ -245,8 +245,8 @@ class AppTheme {
         tileColor: colorScheme.surface,
         titleTextStyle: TextStyle(
           color: colorScheme.onSurface,
-          fontSize: textTheme.titleLarge!.fontSize,
-          fontWeight: textTheme.titleLarge!.fontWeight,
+          fontSize: textTheme.titleMedium!.fontSize,
+          fontWeight: textTheme.titleMedium!.fontWeight,
         ),
         subtitleTextStyle: TextStyle(
           color: colorScheme.onSurface.withOpacity(0.6),

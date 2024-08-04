@@ -1,45 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
   <!-- Body -->
-  <path d="M70,120 Q100,110 130,120 L130,280 Q100,290 70,280 Z" fill="#2F4F4F" />
-  
+  <path d="M70,70 Q100,60 130,70 L130,180 Q100,190 70,180 Z" fill="#2F4F4F" />
   <!-- Arms -->
-  <path d="M70,120 Q60,180 70,280" stroke="#2F4F4F" stroke-width="15" fill="none" />
-  <path d="M130,120 Q140,180 130,280" stroke="#2F4F4F" stroke-width="15" fill="none" />
-  
+  <path d="M70,70 Q60,130 70,180" stroke="#2F4F4F" stroke-width="15" fill="none" />
+  <path d="M130,70 Q140,130 130,180" stroke="#2F4F4F" stroke-width="15" fill="none" />
   <!-- Hood -->
-  <path d="M60,120 Q100,60 140,120 Q100,140 60,120 Z" fill="#2F4F4F" />
-  
+  <path d="M60,70 Q100,30 140,70 Q100,90 60,70 Z" fill="#2F4F4F" />
   <!-- Face -->
-  <circle cx="100" cy="100" r="25" fill="#FFE4B5" />
-  <path d="M90,105 Q100,110 110,105" fill="none" stroke="black" stroke-width="2" />
-  
+  <circle cx="100" cy="55" r="20" fill="#FFE4B5" />
+  <path d="M90,60 Q100,65 110,60" fill="none" stroke="black" stroke-width="2" />
   <!-- Eyes -->
-  <circle cx="90" cy="95" r="5" fill="white" />
-  <circle cx="110" cy="95" r="5" fill="white" />
-  <circle cx="90" cy="95" r="2" fill="black" />
-  <circle cx="110" cy="95" r="2" fill="black" />
-  
+  <circle cx="90" cy="50" r="4" fill="white" />
+  <circle cx="110" cy="50" r="4" fill="white" />
+  <circle cx="90" cy="50" r="2" fill="black" />
+  <circle cx="110" cy="50" r="2" fill="black" />
   <!-- Daggers -->
-  <g transform="translate(60,200) rotate(-45)">
-    <rect width="50" height="10" fill="#C0C0C0" />
-    <polygon points="50,0 70,5 50,10" fill="#C0C0C0" />
+  <g transform="translate(60,130) rotate(-45)">
+    <rect width="40" height="8" fill="#C0C0C0" />
+    <polygon points="40,0 55,4 40,8" fill="#C0C0C0" />
   </g>
-  <g transform="translate(140,200) rotate(45) scale(-1,1)">
-    <rect width="50" height="10" fill="#C0C0C0" />
-    <polygon points="50,0 70,5 50,10" fill="#C0C0C0" />
+  <g transform="translate(140,130) rotate(45) scale(-1,1)">
+    <rect width="40" height="8" fill="#C0C0C0" />
+    <polygon points="40,0 55,4 40,8" fill="#C0C0C0" />
   </g>
-  
   <!-- Shadowstep effect -->
   <g opacity="0.5">
-    <animateTransform attributeName="transform" attributeType="XML" type="translate" 
-      values="0,0; -20,-20; 0,0" dur="2s" repeatCount="indefinite" />
+    <animateTransform attributeName="transform" attributeType="XML" type="translate"
+    values="0,0; -15,-15; 0,0" dur="2s" repeatCount="indefinite" />
     <use href="#figure" fill="#2F4F4F" />
   </g>
-  
   <defs>
     <g id="figure">
-      <path d="M70,120 Q100,110 130,120 L130,280 Q100,290 70,280 Z" />
-      <path d="M60,120 Q100,60 140,120 Q100,140 60,120 Z" />
+      <path d="M70,70 Q100,60 130,70 L130,180 Q100,190 70,180 Z" />
+      <path d="M60,70 Q100,30 140,70 Q100,90 60,70 Z" />
     </g>
   </defs>
 </svg>

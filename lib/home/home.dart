@@ -18,6 +18,7 @@ class HomeScreen extends StatelessWidget {
           expandedHeight: 50,
           flexibleSpace: FlexibleSpaceBar(
             title: Text('Demo RPG'),
+            centerTitle: true,
           ),
         ),
         SliverList(
@@ -28,11 +29,11 @@ class HomeScreen extends StatelessWidget {
                 child: ListTile(
                   leading: SvgPicture.asset(
                     'assets/images/vocations/${character.vocation.image}',
-                    width: 80,
-                    height: 80,
+                    height: 110,
                   ),
+                  trailing: const Icon(Icons.arrow_forward_ios),
                   title: Text(character.name),
-                  subtitle: Text(character.slogan),
+                  subtitle: Text(character.vocation.title),
                 ),
               );
             },
