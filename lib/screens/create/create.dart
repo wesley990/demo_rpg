@@ -73,51 +73,53 @@ class _CreateScreenState extends State<CreateScreen> {
       body: Form(
         key: _formKey,
         onChanged: _updateFormState,
-        child: ListView(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
-          children: [
-            TextFormField(
-              controller: _nameController,
-              focusNode:
-                  _nameFocusNode, // Assign the FocusNode to the name field
-              decoration: const InputDecoration(
-                labelText: 'Name',
-                border: OutlineInputBorder(),
-              ),
-              validator: _validateTextField('name'),
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: _sloganController,
-              decoration: const InputDecoration(
-                labelText: 'Slogan',
-                border: OutlineInputBorder(),
-              ),
-              validator: _validateTextField('slogan'),
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'Choose your vocation:',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            ...Vocation.values
-                .map((vocation) => _buildVocationContainer(vocation)),
-            const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: _isFormValid ? _handleCharacterCreation : null,
-              child: const Text('Create Character'),
-            ),
-            if (!_isFormValid)
-              const Padding(
-                padding: EdgeInsets.only(top: 8.0),
-                child: Text(
-                  'Please fill in all fields and select a vocation to create your character.',
-                  style: TextStyle(color: Colors.red),
-                  textAlign: TextAlign.center,
+          child: Column(
+            children: [
+              TextFormField(
+                controller: _nameController,
+                focusNode:
+                    _nameFocusNode, // Assign the FocusNode to the name field
+                decoration: const InputDecoration(
+                  labelText: 'Name',
+                  border: OutlineInputBorder(),
                 ),
+                validator: _validateTextField('name'),
               ),
-          ],
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _sloganController,
+                decoration: const InputDecoration(
+                  labelText: 'Slogan',
+                  border: OutlineInputBorder(),
+                ),
+                validator: _validateTextField('slogan'),
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                'Choose your vocation:',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8),
+              ...Vocation.values
+                  .map((vocation) => _buildVocationContainer(vocation)),
+              const SizedBox(height: 24),
+              ElevatedButton(
+                onPressed: _isFormValid ? _handleCharacterCreation : null,
+                child: const Text('Create Character'),
+              ),
+              if (!_isFormValid)
+                const Padding(
+                  padding: EdgeInsets.only(top: 8.0),
+                  child: Text(
+                    'Please fill in all fields and select a vocation to create your character.',
+                    style: TextStyle(color: Colors.red),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );
