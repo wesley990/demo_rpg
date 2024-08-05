@@ -3,6 +3,7 @@ import 'package:demo_rpg/models/vocation.dart';
 import 'package:demo_rpg/models/character.dart';
 import 'package:demo_rpg/services/character_store.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 class CreateScreen extends StatefulWidget {
@@ -195,8 +196,16 @@ class _CreateScreenState extends State<CreateScreen> {
         id: const Uuid().v4(),
         vocation: _selectedVocation!,
       );
-      characters.add(newCharacter);
-      // TODO: Navigate to the next screen or show a success message
+      Provider.of<CharacterStore>(context, listen: false)
+          .addCharacter(newCharacter);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text('Character created successfully'),
+            duration: Duration(seconds: 2)),
+      );
+
+      Navigator.pop(context);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please fill all fields correctly')),
