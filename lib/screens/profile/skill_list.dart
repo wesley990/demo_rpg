@@ -37,7 +37,7 @@ class _SkillListState extends State<SkillList> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: availableSkills.map((skill) {
         log('Loading skill image: ${skill.image}');
         return GestureDetector(
@@ -48,7 +48,7 @@ class _SkillListState extends State<SkillList> {
             });
           },
           child: Container(
-            margin: const EdgeInsets.all(4.0),
+            // margin: const EdgeInsets.all(4.0),
             color: skill == selectedSkill ? Colors.blue : Colors.transparent,
             constraints: BoxConstraints(
               maxWidth: (MediaQuery.of(context).size.width - 50) / 4,
