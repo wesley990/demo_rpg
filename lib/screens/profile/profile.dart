@@ -1,4 +1,5 @@
 import 'package:demo_rpg/models/character.dart';
+import 'package:demo_rpg/screens/profile/skill_list.dart';
 import 'package:demo_rpg/screens/profile/stats_table.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -55,6 +56,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               StatsTable(
+                character: character,
+              ),
+              const SizedBox(height: 10),
+              SkillList(
                 character: character,
               ),
             ],

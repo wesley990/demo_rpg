@@ -14,7 +14,7 @@ class Skill {
   });
 }
 
-final List<Skill> skills = [
+final List<Skill> allSkills = [
   // 戰士技能
   Skill(
     id: '1',
@@ -109,7 +109,7 @@ final List<Skill> skills = [
   Skill(
     id: '16',
     name: '神聖懲戒',
-    image: 'assets/images/skills/divine_punishment.svg',
+    image: 'assets/images/skills/rapid_strike.svg',
     vocation: Vocation.cleric,
   ),
 ];

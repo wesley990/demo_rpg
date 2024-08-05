@@ -30,6 +30,7 @@ class _StatsTableState extends State<StatsTable> {
               ),
             ],
           ),
+          const SizedBox(height: 10),
           Table(
             border: TableBorder.all(),
             defaultVerticalAlignment: TableCellVerticalAlignment.middle,
