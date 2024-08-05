@@ -6,10 +6,8 @@ import 'package:demo_rpg/models/character.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SkillList extends StatefulWidget {
-  const SkillList(
-      {super.key,
-      required this.character,
-      required void Function(Set<Skill> newSkills) function});
+  const SkillList({super.key, required this.character});
+  // required void Function(Set<Skill> newSkills) function});
 
   final Character character;
 
@@ -20,7 +18,7 @@ class SkillList extends StatefulWidget {
 class _SkillListState extends State<SkillList> {
   late List<Skill> availableSkills;
   late Skill selectedSkill;
-  late Function(Set<Skill> newSkills) updateSkills;
+  // late Function(Set<Skill> newSkills) updateSkills;
 
   @override
   void initState() {
@@ -33,7 +31,7 @@ class _SkillListState extends State<SkillList> {
     } else {
       selectedSkill = widget.character.skills.first;
     }
-    updateSkills = widget.character.updateSkills;
+    // updateSkills = widget.character.updateSkills;
   }
 
   @override
@@ -46,7 +44,7 @@ class _SkillListState extends State<SkillList> {
           onTap: () {
             setState(() {
               selectedSkill = skill;
-              updateSkills({skill});
+              widget.character.updateSkills({skill});
             });
           },
           child: Container(

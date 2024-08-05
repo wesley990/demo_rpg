@@ -21,7 +21,7 @@ class _StatsTableState extends State<StatsTable> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text('Available Points: ${widget.character.points}',
+              Text('可用點數: ${widget.character.points}',
                   style: AppTheme.textTheme.titleMedium),
               Icon(
                 Icons.star,

@@ -82,19 +82,19 @@ class _CreateScreenState extends State<CreateScreen> {
                 focusNode:
                     _nameFocusNode, // Assign the FocusNode to the name field
                 decoration: const InputDecoration(
-                  labelText: 'Name',
+                  labelText: '姓名',
                   border: OutlineInputBorder(),
                 ),
-                validator: _validateTextField('name'),
+                validator: _validateTextField('姓名'),
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _sloganController,
                 decoration: const InputDecoration(
-                  labelText: 'Slogan',
+                  labelText: '口號',
                   border: OutlineInputBorder(),
                 ),
-                validator: _validateTextField('slogan'),
+                validator: _validateTextField('口號'),
               ),
               const SizedBox(height: 16),
               const Text(
@@ -128,7 +128,7 @@ class _CreateScreenState extends State<CreateScreen> {
   String? Function(String?) _validateTextField(String fieldName) {
     return (value) {
       if (value == null || value.trim().isEmpty) {
-        return 'Please enter a $fieldName';
+        return '請輸入$fieldName';
       }
       return null;
     };
