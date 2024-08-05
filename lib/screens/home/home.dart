@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:demo_rpg/services/character_store.dart';
 
 import 'package:demo_rpg/models/character.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -24,34 +25,36 @@ class HomeScreen extends StatelessWidget {
             centerTitle: true,
           ),
         ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              final Character character = characters[index];
-              return Card(
-                child: ListTile(
-                  leading: SvgPicture.asset(
-                    'assets/images/vocations/${character.vocation.image}',
-                    height: 110,
+        Consumer<CharacterStore>(builder: (context, characterStore, child) {
+          return SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                final Character character = characterStore.characters[index];
+                return Card(
+                  child: ListTile(
+                    leading: SvgPicture.asset(
+                      'assets/images/vocations/${character.vocation.image}',
+                      height: 110,
+                    ),
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    title: Text(character.name),
+                    subtitle: Text(character.vocation.title),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              ProfileScreen(character: character),
+                        ),
+                      );
+                    },
                   ),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                  title: Text(character.name),
-                  subtitle: Text(character.vocation.title),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            ProfileScreen(character: character),
-                      ),
-                    );
-                  },
-                ),
-              );
-            },
-            childCount: characters.length,
-          ),
-        ),
+                );
+              },
+              childCount: characterStore.characterCount,
+            ),
+          );
+        }),
         SliverToBoxAdapter(
           child: Container(
             padding: const EdgeInsets.all(20),
