@@ -1,7 +1,9 @@
 import 'package:demo_rpg/screens/home/home.dart';
+import 'package:demo_rpg/services/character_store.dart';
 import 'package:demo_rpg/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -17,12 +19,15 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.system,
-      home: const SelectableRegionExample(),
+    return ChangeNotifierProvider(
+      create: (context) => CharacterStore(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
+        themeMode: ThemeMode.system,
+        home: const SelectableRegionExample(),
+      ),
     );
   }
 }
