@@ -85,15 +85,12 @@ class ProfileScreen extends StatelessWidget {
 
   void _saveCharacter(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: const Text('已儲存角色'),
-        action: SnackBarAction(
-          label: '關閉',
-          onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
-        ),
-        duration: const Duration(seconds: 1),
+      const SnackBar(
+        content: Text('已儲存角色'),
+        duration: Duration(seconds: 1),
       ),
     );
+
     Navigator.pop(context);
   }
 }
