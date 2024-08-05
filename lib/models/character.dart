@@ -61,30 +61,3 @@ class Character with Stats {
     skills.addAll(newSkills);
   }
 }
-
-List<Character> characters = [
-  Character(
-    name: '艾爾德林·神秘法師',
-    slogan: '奧術之道的至高主宰，掌控宇宙奧秘的智慧導師',
-    id: '1',
-    vocation: Vocation.mage,
-  ),
-  Character(
-    name: '影刃·陰影刺客',
-    slogan: '如夜色般靜謐，如陰影般致命，潛行於黑暗中的無形刺客',
-    id: '2',
-    vocation: Vocation.rogue,
-  ),
-  Character(
-    name: '賽拉菲娜·光明使者',
-    slogan: '神聖恩典的閃耀明燈，照亮世間黑暗、撫慰眾生之苦的聖潔天使',
-    id: '3',
-    vocation: Vocation.cleric,
-  ),
-  Character(
-    name: '索爾加·鐵拳',
-    slogan: '戰場上堅不可摧的鋼鐵意志，如山岳般屹立不倒的無畏勇士',
-    id: '4',
-    vocation: Vocation.warrior,
-  ),
-];

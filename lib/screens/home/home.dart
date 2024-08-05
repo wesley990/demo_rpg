@@ -1,7 +1,8 @@
 import 'package:demo_rpg/screens/create/create.dart';
 import 'package:demo_rpg/screens/profile/profile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart'; // Add this line to import the package
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:demo_rpg/services/character_store.dart';
 
 import 'package:demo_rpg/models/character.dart';
 

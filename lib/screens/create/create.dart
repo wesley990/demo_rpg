@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:demo_rpg/models/vocation.dart';
 import 'dart:developer';
 import 'package:demo_rpg/models/character.dart';
-
+import 'package:demo_rpg/services/character_store.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:uuid/uuid.dart';
 
