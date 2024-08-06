@@ -60,4 +60,17 @@ class Character with Stats {
     skills.clear();
     skills.addAll(newSkills);
   }
+
+  // character to firestore (map)
+  Map<String, dynamic> toFirestore() {
+    return {
+      'name': name,
+      'slogan': slogan,
+      'id': id,
+      'vocation': vocation.toString(),
+      'isFavorite': _isFavorite,
+      'skills': skills.map((skill) => skill.id).toList(),
+      'stats': statsAsListOfMap,
+    };
+  }
 }
