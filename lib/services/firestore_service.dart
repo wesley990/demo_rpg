@@ -1,37 +1,112 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:demo_rpg/models/character.dart';
+import 'package:demo_rpg/models/vocation.dart';
+import 'package:flutter/foundation.dart';
 
 class FirestoreService {
-  static final FirestoreService _instance = FirestoreService._internal();
+  static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  factory FirestoreService() {
-    return _instance;
+  static final charactersRef =
+      _firestore.collection('characters').withConverter<Character>(
+            fromFirestore: Character.fromFirestore,
+            toFirestore: (Character c, _) => c.toFirestore(),
+          );
+
+  // CRUD operations
+  static Future<void> addCharacter(Character character) {
+    return charactersRef.add(character);
   }
 
-  FirestoreService._internal();
-
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
-  CollectionReference<Map<String, dynamic>> getCollection(
-      String collectionName) {
-    return _firestore.collection(collectionName);
+  static Future<Character?> getCharacter(String id) async {
+    final doc = await charactersRef.doc(id).get();
+    return doc.data();
   }
 
-  DocumentReference<Map<String, dynamic>> getDocument(
-      String collectionName, String documentId) {
-    return _firestore.collection(collectionName).doc(documentId);
+  static Future<void> updateCharacter(String id, Character character) {
+    return charactersRef.doc(id).set(character, SetOptions(merge: true));
   }
 
-  Future<DocumentReference<Map<String, dynamic>>> addDocument(
-      String collectionName, Map<String, dynamic> data) {
-    return _firestore.collection(collectionName).add(data);
+  static Future<void> deleteCharacter(String id) {
+    return charactersRef.doc(id).delete();
   }
 
-  Future<void> updateDocument(
-      String collectionName, String documentId, Map<String, dynamic> data) {
-    return _firestore.collection(collectionName).doc(documentId).update(data);
+  // Query operations
+  static Stream<List<Character>> getCharactersByVocation(Vocation vocation) {
+    return charactersRef
+        .where('vocation', isEqualTo: vocation.toString())
+        .snapshots()
+        .map((snapshot) => snapshot.docs.map((doc) => doc.data()).toList());
   }
 
-  Future<void> deleteDocument(String collectionName, String documentId) {
-    return _firestore.collection(collectionName).doc(documentId).delete();
+  static Future<List<Character>> getFavoriteCharacters() async {
+    final querySnapshot =
+        await charactersRef.where('isFavorite', isEqualTo: true).get();
+    return querySnapshot.docs.map((doc) => doc.data()).toList();
+  }
+
+  // Batch operations
+  static Future<void> batchUpdateCharacters(List<Character> characters) {
+    final batch = _firestore.batch();
+    for (var character in characters) {
+      batch.set(
+          charactersRef.doc(character.id), character, SetOptions(merge: true));
+    }
+    return batch.commit();
+  }
+
+  // Transaction example
+  static Future<void> transferSkill(
+      String fromCharacterId, String toCharacterId, String skillId) {
+    return _firestore.runTransaction((transaction) async {
+      final fromCharacterDoc = charactersRef.doc(fromCharacterId);
+      final toCharacterDoc = charactersRef.doc(toCharacterId);
+
+      final fromCharacter = (await transaction.get(fromCharacterDoc)).data();
+      final toCharacter = (await transaction.get(toCharacterDoc)).data();
+
+      if (fromCharacter == null || toCharacter == null) {
+        throw Exception('One or both characters not found');
+      }
+
+      final skill = fromCharacter.skills.firstWhere((s) => s.id == skillId,
+          orElse: () => throw Exception('Skill not found'));
+
+      fromCharacter.skills.remove(skill);
+      toCharacter.skills.add(skill);
+
+      transaction.set(fromCharacterDoc, fromCharacter);
+      transaction.set(toCharacterDoc, toCharacter);
+    });
+  }
+
+  // Offline persistence
+  static void enablePersistence() {
+    try {
+      _firestore.settings = const Settings(
+          persistenceEnabled: true,
+          cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED);
+      if (kDebugMode) {
+        print('Firestore persistence enabled');
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error enabling Firestore persistence: $e');
+      }
+      // You might want to set some flag or notify the user here
+    }
+  }
+
+  // Error handling
+  static Future<T> handleFirestoreError<T>(
+      Future<T> Function() operation) async {
+    try {
+      return await operation();
+    } on FirebaseException catch (e) {
+      if (kDebugMode) {
+        print('Firestore error: ${e.code} - ${e.message}');
+      }
+      // You could also use a more sophisticated error handling mechanism here
+      rethrow;
+    }
   }
 }
