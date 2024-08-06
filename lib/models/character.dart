@@ -89,9 +89,7 @@ class Character with Stats {
       slogan: data['slogan'] as String? ?? '',
       id: data['id'] as String? ?? '',
       vocation: Vocation.values.firstWhere(
-        (v) =>
-            v.toString() ==
-            'Vocation.${data['vocation'] as String? ?? 'unknown'}',
+        (v) => v.toString() == (data['vocation'] as String? ?? 'unknown'),
         orElse: () => Vocation.unknown,
       ),
       isFavorite: data['isFavorite'] as bool? ?? false,
@@ -108,7 +106,7 @@ class Character with Stats {
 
     character.setStats(
         points: data['points'] as int? ?? 10,
-        statsMap: data['statsMap'] as Map<String, dynamic>);
+        statsMap: data['stats'] as Map<String, dynamic>);
 
     return character;
   }
