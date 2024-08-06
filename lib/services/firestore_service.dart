@@ -14,20 +14,31 @@ class FirestoreService {
 
   // CRUD operations
   static Future<void> addCharacter(Character character) {
-    return charactersRef.add(character);
+    return handleFirestoreError(() async {
+      // await charactersRef.add(character);
+      await charactersRef
+          .doc(character.id)
+          .set(character); // since we use uuid v4 as id
+    });
   }
 
   static Future<Character?> getCharacter(String id) async {
-    final doc = await charactersRef.doc(id).get();
-    return doc.data();
+    return handleFirestoreError(() async {
+      final doc = await charactersRef.doc(id).get();
+      return doc.data();
+    });
   }
 
   static Future<void> updateCharacter(String id, Character character) {
-    return charactersRef.doc(id).set(character, SetOptions(merge: true));
+    return handleFirestoreError(() async {
+      await charactersRef.doc(id).set(character, SetOptions(merge: true));
+    });
   }
 
   static Future<void> deleteCharacter(String id) {
-    return charactersRef.doc(id).delete();
+    return handleFirestoreError(() async {
+      await charactersRef.doc(id).delete();
+    });
   }
 
   // Query operations
@@ -39,43 +50,49 @@ class FirestoreService {
   }
 
   static Future<List<Character>> getFavoriteCharacters() async {
-    final querySnapshot =
-        await charactersRef.where('isFavorite', isEqualTo: true).get();
-    return querySnapshot.docs.map((doc) => doc.data()).toList();
+    return handleFirestoreError(() async {
+      final querySnapshot =
+          await charactersRef.where('isFavorite', isEqualTo: true).get();
+      return querySnapshot.docs.map((doc) => doc.data()).toList();
+    });
   }
 
   // Batch operations
   static Future<void> batchUpdateCharacters(List<Character> characters) {
-    final batch = _firestore.batch();
-    for (var character in characters) {
-      batch.set(
-          charactersRef.doc(character.id), character, SetOptions(merge: true));
-    }
-    return batch.commit();
+    return handleFirestoreError(() async {
+      final batch = _firestore.batch();
+      for (var character in characters) {
+        batch.set(charactersRef.doc(character.id), character,
+            SetOptions(merge: true));
+      }
+      await batch.commit();
+    });
   }
 
   // Transaction example
   static Future<void> transferSkill(
       String fromCharacterId, String toCharacterId, String skillId) {
-    return _firestore.runTransaction((transaction) async {
-      final fromCharacterDoc = charactersRef.doc(fromCharacterId);
-      final toCharacterDoc = charactersRef.doc(toCharacterId);
+    return handleFirestoreError(() async {
+      await _firestore.runTransaction((transaction) async {
+        final fromCharacterDoc = charactersRef.doc(fromCharacterId);
+        final toCharacterDoc = charactersRef.doc(toCharacterId);
 
-      final fromCharacter = (await transaction.get(fromCharacterDoc)).data();
-      final toCharacter = (await transaction.get(toCharacterDoc)).data();
+        final fromCharacter = (await transaction.get(fromCharacterDoc)).data();
+        final toCharacter = (await transaction.get(toCharacterDoc)).data();
 
-      if (fromCharacter == null || toCharacter == null) {
-        throw Exception('One or both characters not found');
-      }
+        if (fromCharacter == null || toCharacter == null) {
+          throw Exception('One or both characters not found');
+        }
 
-      final skill = fromCharacter.skills.firstWhere((s) => s.id == skillId,
-          orElse: () => throw Exception('Skill not found'));
+        final skill = fromCharacter.skills.firstWhere((s) => s.id == skillId,
+            orElse: () => throw Exception('Skill not found'));
 
-      fromCharacter.skills.remove(skill);
-      toCharacter.skills.add(skill);
+        fromCharacter.skills.remove(skill);
+        toCharacter.skills.add(skill);
 
-      transaction.set(fromCharacterDoc, fromCharacter);
-      transaction.set(toCharacterDoc, toCharacter);
+        transaction.set(fromCharacterDoc, fromCharacter);
+        transaction.set(toCharacterDoc, toCharacter);
+      });
     });
   }
 
