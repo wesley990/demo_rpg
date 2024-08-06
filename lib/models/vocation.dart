@@ -26,7 +26,13 @@ enum Vocation {
           '能夠療癒盟友並懲戒敵人的神聖施法者。牧師從對神祇堅定不移的信仰中汲取力量，使其能夠引導神蹟般的治療能量和神聖怒火。他們是團隊的精神支柱，在危急時刻提供道德指引和至關重要的支援。',
       weapon: '權杖',
       ability: '神聖醫療',
-      image: 'cleric.svg');
+      image: 'cleric.svg'),
+  unknown(
+      title: '未知職業',
+      description: '這是一個未知的職業，沒有人知道它的能力和特點。',
+      weapon: '未知武器',
+      ability: '未知技能',
+      image: 'unknown.svg');
 
   final String title;
   final String description;

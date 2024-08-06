@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Body -->
+  <rect x="70" y="70" width="60" height="110" fill="#808080" />
+  
+  <!-- Head -->
+  <circle cx="100" cy="50" r="30" fill="#A9A9A9" />
+  
+  <!-- Question mark -->
+  <text x="85" y="125" font-size="80" fill="#FFFFFF">?</text>
+  
+  <!-- Cloak -->
+  <path d="M70,70 Q100,60 130,70 L130,180 Q100,190 70,180 Z" fill="#4B0082" fill-opacity="0.5" />
+  
+  <!-- Mist effect -->
+  <g>
+    <animateTransform attributeName="transform" attributeType="XML" type="translate" values="0,0; 0,10; 0,0" dur="3s" repeatCount="indefinite" />
+    <path d="M0,180 Q50,170 100,180 Q150,190 200,180" fill="none" stroke="#E6E6FA" stroke-width="5" opacity="0.7">
+      <animate attributeName="d" values="M0,180 Q50,170 100,180 Q150,190 200,180; M0,180 Q50,190 100,180 Q150,170 200,180; M0,180 Q50,170 100,180 Q150,190 200,180" dur="10s" repeatCount="indefinite" />
+    </path>
+  </g>
+  
+  <!-- Glowing effect -->
+  <circle cx="100" cy="100" r="80" fill="url(#glow)" opacity="0.3">
+    <animate attributeName="opacity" values="0.3;0.1;0.3" dur="4s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- Gradient for glow -->
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4B0082;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+</svg>
