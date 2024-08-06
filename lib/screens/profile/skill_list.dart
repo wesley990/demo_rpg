@@ -53,7 +53,7 @@ class _SkillListContentState extends State<_SkillListContent> {
   void _onSkillTap(Skill skill) {
     setState(() {
       _selectedSkill = skill;
-      widget.character.updateSkills({skill});
+      widget.character.updateSkill(skill);
       widget.onSkillChanged();
     });
   }

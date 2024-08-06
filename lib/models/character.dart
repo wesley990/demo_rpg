@@ -72,6 +72,7 @@ class Character with Stats {
       'isFavorite': _isFavorite,
       'skills': skills.map((skill) => skill.id).toList(),
       'stats': statsAsListOfMap,
+      'points': points,
     };
   }
 
