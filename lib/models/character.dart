@@ -71,7 +71,7 @@ class Character with Stats {
       'vocation': vocation.toString(),
       'isFavorite': _isFavorite,
       'skills': skills.map((skill) => skill.id).toList(),
-      'stats': statsAsListOfMap,
+      'stats': statsAsMap,
       'points': points,
     };
   }
@@ -97,11 +97,18 @@ class Character with Stats {
       isFavorite: data['isFavorite'] as bool? ?? false,
     );
 
-    for (String id in data['skills'] as List<String>) {
-      Skill skill = allSkills.firstWhere((skill) => skill.id == id);
-
-      character.updateSkill(skill);
+    final skillList = data['skills'] as List<dynamic>?;
+    if (skillList != null) {
+      for (var id in skillList.cast<String>()) {
+        Skill skill = allSkills.firstWhere((skill) => skill.id == id,
+            orElse: () => throw Exception('Skill not found'));
+        character.updateSkill(skill);
+      }
     }
+
+    character.setStats(
+        points: data['points'] as int? ?? 10,
+        statsMap: data['statsMap'] as Map<String, dynamic>);
 
     return character;
   }

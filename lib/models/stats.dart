@@ -50,6 +50,14 @@ mixin Stats {
   // DRY Principle: Reuse _changeStat logic instead of duplicating code
   void increaseStat(String stat) => _changeStat(stat, true);
   void decreaseStat(String stat) => _changeStat(stat, false);
+
+  void setStats({required int points, required Map<String, dynamic> statsMap}) {
+    _points = points;
+    _stats['health'] = int.parse(statsMap['health'].toString());
+    _stats['attack'] = int.parse(statsMap['attack'].toString());
+    _stats['defense'] = int.parse(statsMap['defense'].toString());
+    _stats['skill'] = int.parse(statsMap['skill'].toString());
+  }
 }
 
 
