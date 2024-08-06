@@ -23,12 +23,12 @@ class CharacterStore extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateCharacter(Character updatedCharacter) {
+  void updateCharacter(Character updatedCharacter) async {
     final index = _characters
         .indexWhere((character) => character.id == updatedCharacter.id);
     if (index != -1) {
       _characters[index] = updatedCharacter;
-      FirestoreService.updateCharacter(updatedCharacter);
+      await saveCharacter(updatedCharacter);
       notifyListeners();
     }
   }
