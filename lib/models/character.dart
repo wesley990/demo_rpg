@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo_rpg/models/skill.dart';
 import 'package:demo_rpg/models/stats.dart';
 import 'package:demo_rpg/models/vocation.dart';
@@ -56,9 +57,9 @@ class Character with Stats {
   int get hashCode => name.hashCode ^ id.hashCode;
 
   // update skill set
-  void updateSkills(Set<Skill> newSkills) {
+  void updateSkill(Skill skill) {
     skills.clear();
-    skills.addAll(newSkills);
+    skills.add(skill);
   }
 
   // character to firestore (map)
@@ -72,5 +73,35 @@ class Character with Stats {
       'skills': skills.map((skill) => skill.id).toList(),
       'stats': statsAsListOfMap,
     };
+  }
+
+  factory Character.fromFirestore(
+      DocumentSnapshot<Map<String, dynamic>> snapshot,
+      SnapshotOptions? options) {
+    final data = snapshot.data();
+    if (data == null) {
+      throw Exception('No data found in the snapshot');
+    }
+
+    Character character = Character(
+      name: data['name'] as String? ?? '',
+      slogan: data['slogan'] as String? ?? '',
+      id: data['id'] as String? ?? '',
+      vocation: Vocation.values.firstWhere(
+        (v) =>
+            v.toString() ==
+            'Vocation.${data['vocation'] as String? ?? 'unknown'}',
+        orElse: () => Vocation.unknown,
+      ),
+      isFavorite: data['isFavorite'] as bool? ?? false,
+    );
+
+    for (String id in data['skills'] as List<String>) {
+      Skill skill = allSkills.firstWhere((skill) => skill.id == id);
+
+      character.updateSkill(skill);
+    }
+
+    return character;
   }
 }
