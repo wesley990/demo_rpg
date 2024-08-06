@@ -12,7 +12,11 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  FirestoreService.enablePersistence();
+  try {
+    FirestoreService.enablePersistence();
+  } catch (e) {
+    print('Error enabling persistence: $e');
+  }
   runApp(const MainApp());
 }
 
