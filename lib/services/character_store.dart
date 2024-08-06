@@ -28,6 +28,7 @@ class CharacterStore extends ChangeNotifier {
         .indexWhere((character) => character.id == updatedCharacter.id);
     if (index != -1) {
       _characters[index] = updatedCharacter;
+      FirestoreService.updateCharacter(updatedCharacter);
       notifyListeners();
     }
   }
