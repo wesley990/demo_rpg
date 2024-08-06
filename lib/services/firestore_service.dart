@@ -29,6 +29,12 @@ class FirestoreService {
     });
   }
 
+  static Future<QuerySnapshot<Character>> getCharacterOnce() {
+    return handleFirestoreError(() async {
+      return await charactersRef.get();
+    });
+  }
+
   static Future<void> updateCharacter(String id, Character character) {
     return handleFirestoreError(() async {
       await charactersRef.doc(id).set(character, SetOptions(merge: true));
