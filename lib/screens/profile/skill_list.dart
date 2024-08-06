@@ -6,10 +6,12 @@ import 'package:demo_rpg/models/character.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SkillList extends StatefulWidget {
-  const SkillList({super.key, required this.character});
+  const SkillList(
+      {super.key, required this.character, required this.onSkillChanged});
   // required void Function(Set<Skill> newSkills) function});
 
   final Character character;
+  final VoidCallback onSkillChanged;
 
   @override
   State<SkillList> createState() => _SkillListState();
@@ -45,6 +47,7 @@ class _SkillListState extends State<SkillList> {
             setState(() {
               selectedSkill = skill;
               widget.character.updateSkills({skill});
+              widget.onSkillChanged();
             });
           },
           child: Container(

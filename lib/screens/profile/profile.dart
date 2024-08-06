@@ -5,16 +5,25 @@ import 'package:demo_rpg/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key, required this.character});
 
   final Character character;
 
   @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  void _rebuildScreen() {
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(character.name),
+        title: Text(widget.character.name),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -24,15 +33,16 @@ class ProfileScreen extends StatelessWidget {
             children: [
               _buildVocationImage(),
               const SizedBox(height: 20),
-              if (character.skills.isNotEmpty) _buildFirstSkill(),
+              if (widget.character.skills.isNotEmpty) _buildFirstSkill(),
               const SizedBox(height: 10),
               _buildSlogan(),
               const SizedBox(height: 10),
               _buildVocationDescription(),
               const SizedBox(height: 20),
-              StatsTable(character: character),
+              StatsTable(character: widget.character),
               const SizedBox(height: 20),
-              SkillList(character: character),
+              SkillList(
+                  character: widget.character, onSkillChanged: _rebuildScreen),
               const SizedBox(height: 20),
               _buildSaveButton(context),
               const SizedBox(height: 30),
@@ -45,21 +55,21 @@ class ProfileScreen extends StatelessWidget {
 
   Widget _buildVocationImage() {
     return SvgPicture.asset(
-      'assets/images/vocations/${character.vocation.image}',
+      'assets/images/vocations/${widget.character.vocation.image}',
       height: 150,
     );
   }
 
   Widget _buildFirstSkill() {
     return Text(
-      '習得技能 ${character.skills.first.name}',
+      '習得技能 ${widget.character.skills.first.name}',
       style: AppTheme.textTheme.titleMedium,
     );
   }
 
   Widget _buildSlogan() {
     return SelectableText(
-      character.slogan,
+      widget.character.slogan,
       style: const TextStyle(
         fontSize: 18,
         fontStyle: FontStyle.italic,
@@ -70,7 +80,7 @@ class ProfileScreen extends StatelessWidget {
 
   Widget _buildVocationDescription() {
     return SelectableText(
-      character.vocation.description,
+      widget.character.vocation.description,
       style: const TextStyle(fontSize: 16),
       textAlign: TextAlign.center,
     );
