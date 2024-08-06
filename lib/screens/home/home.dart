@@ -7,8 +7,19 @@ import 'package:provider/provider.dart';
 import 'package:demo_rpg/services/character_store.dart';
 import 'package:demo_rpg/models/character.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  HomeScreenState createState() => HomeScreenState();
+}
+
+class HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    Provider.of<CharacterStore>(context, listen: false).fecthCharacterOnce();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
