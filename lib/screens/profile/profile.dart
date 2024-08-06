@@ -1,9 +1,11 @@
 import 'package:demo_rpg/models/character.dart';
 import 'package:demo_rpg/screens/profile/skill_list.dart';
 import 'package:demo_rpg/screens/profile/stats_table.dart';
+import 'package:demo_rpg/services/character_store.dart';
 import 'package:demo_rpg/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key, required this.character});
@@ -100,7 +102,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         duration: Duration(seconds: 1),
       ),
     );
-
+    Provider.of<CharacterStore>(context, listen: false)
+        .updateCharacter(widget.character);
     Navigator.pop(context);
   }
 }

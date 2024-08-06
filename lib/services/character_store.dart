@@ -13,6 +13,11 @@ class CharacterStore extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> saveCharacter(Character character) async {
+    await FirestoreService.updateCharacter(character);
+    return;
+  }
+
   void removeCharacter(String id) {
     _characters.removeWhere((character) => character.id == id);
     notifyListeners();

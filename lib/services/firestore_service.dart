@@ -35,9 +35,17 @@ class FirestoreService {
     });
   }
 
-  static Future<void> updateCharacter(String id, Character character) {
+  static Future<void> updateCharacter(Character character) {
     return handleFirestoreError(() async {
-      await charactersRef.doc(id).set(character, SetOptions(merge: true));
+      await charactersRef
+          .doc(character.id)
+          // .set(character, SetOptions(merge: true));
+          .update({
+        'stats': character.statsAsMap,
+        'points': character.points,
+        'isFavorite': character.isFavorite,
+        'skills': character.skills.map((skill) => skill.id).toList(),
+      });
     });
   }
 
