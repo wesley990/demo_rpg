@@ -81,7 +81,9 @@ class _CreateScreenState extends State<CreateScreen> {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
-              ...Vocation.values.map(_buildVocationContainer),
+              ...Vocation.values
+                  .where((vocation) => vocation != Vocation.unknown)
+                  .map(_buildVocationContainer),
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: _isFormValid ? _handleCharacterCreation : null,
