@@ -26,11 +26,15 @@ class _StatsTableContentState extends State<_StatsTableContent> {
     setState(() {
       if (increase) {
         widget.character.increaseStat(title);
+        turns += 0.5;
       } else {
         widget.character.decreaseStat(title);
+        turns -= 0.5;
       }
     });
   }
+
+  double turns = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +58,13 @@ class _StatsTableContentState extends State<_StatsTableContent> {
           '可用點數: ${widget.character.points}',
           style: AppTheme.textTheme.titleMedium,
         ),
-        Icon(
-          Icons.star,
-          color: widget.character.points > 0 ? Colors.yellow : Colors.grey,
+        AnimatedRotation(
+          duration: const Duration(milliseconds: 200),
+          turns: turns,
+          child: Icon(
+            Icons.star,
+            color: widget.character.points > 0 ? Colors.yellow : Colors.grey,
+          ),
         ),
       ],
     );

@@ -1,4 +1,5 @@
 import 'package:demo_rpg/models/character.dart';
+import 'package:demo_rpg/screens/profile/heart.dart';
 import 'package:demo_rpg/screens/profile/skill_list.dart';
 import 'package:demo_rpg/screens/profile/stats_table.dart';
 import 'package:demo_rpg/services/character_store.dart';
@@ -26,6 +27,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.character.name),
+        actions: [HeartIcon(character: widget.character)],
       ),
       body: SingleChildScrollView(
         child: Padding(
