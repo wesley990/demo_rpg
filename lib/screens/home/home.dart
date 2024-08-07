@@ -17,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    Provider.of<CharacterStore>(context, listen: false).fecthCharacterOnce();
+    Provider.of<CharacterStore>(context, listen: false).fetchCharactersOnce();
     super.initState();
   }
 

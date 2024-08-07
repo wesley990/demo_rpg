@@ -2,6 +2,7 @@ import 'package:demo_rpg/screens/home/home.dart';
 import 'package:demo_rpg/services/character_store.dart';
 import 'package:demo_rpg/services/firestore_service.dart';
 import 'package:demo_rpg/theme.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +16,9 @@ void main() async {
   try {
     FirestoreService.enablePersistence();
   } catch (e) {
-    print('Error enabling persistence: $e');
+    if (kDebugMode) {
+      print('Error enabling persistence: $e');
+    }
   }
   runApp(const MainApp());
 }

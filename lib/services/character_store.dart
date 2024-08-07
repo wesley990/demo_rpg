@@ -4,27 +4,25 @@ import 'package:demo_rpg/models/character.dart';
 
 class CharacterStore extends ChangeNotifier {
   final List<Character> _characters = [];
+  List<Character> get characters => List.unmodifiable(_characters);
 
-  List<Character> get characters => _characters;
-
-  void addCharacter(Character character) {
-    FirestoreService.addCharacter(character);
+  Future<void> addCharacter(Character character) async {
+    await FirestoreService.addCharacter(character);
     _characters.add(character);
     notifyListeners();
   }
 
   Future<void> saveCharacter(Character character) async {
     await FirestoreService.updateCharacter(character);
-    return;
   }
 
-  void removeCharacter(Character character) async {
+  Future<void> removeCharacter(Character character) async {
     _characters.removeWhere((c) => character.id == c.id);
     await FirestoreService.deleteCharacter(character);
     notifyListeners();
   }
 
-  void updateCharacter(Character updatedCharacter) async {
+  Future<void> updateCharacter(Character updatedCharacter) async {
     final index = _characters
         .indexWhere((character) => character.id == updatedCharacter.id);
     if (index != -1) {
@@ -39,10 +37,8 @@ class CharacterStore extends ChangeNotifier {
     notifyListeners();
   }
 
-  void fecthCharacterOnce() async {
-    if (characterCount > 0) {
-      return;
-    } else {
+  Future<void> fetchCharactersOnce() async {
+    if (_characters.isEmpty) {
       final snapshot = await FirestoreService.getCharacterOnce();
       _characters.addAll(snapshot.docs.map((doc) => doc.data()).toList());
       notifyListeners();
@@ -50,6 +46,5 @@ class CharacterStore extends ChangeNotifier {
   }
 
   int get characterCount => _characters.length;
-
   bool get hasCharacters => _characters.isNotEmpty;
 }
