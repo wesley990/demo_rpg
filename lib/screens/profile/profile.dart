@@ -56,9 +56,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildVocationImage() {
-    return SvgPicture.asset(
-      'assets/images/vocations/${widget.character.vocation.image}',
-      height: 150,
+    return Hero(
+      tag: widget.character.id.toString(),
+      child: SvgPicture.asset(
+        'assets/images/vocations/${widget.character.vocation.image}',
+        height: 150,
+      ),
     );
   }
 

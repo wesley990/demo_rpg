@@ -56,16 +56,25 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildCharacterCard(BuildContext context, Character character) {
-    return Card(
-      child: ListTile(
-        leading: SvgPicture.asset(
-          'assets/images/vocations/${character.vocation.image}',
-          height: 110,
+    return Dismissible(
+      onDismissed: (direction) =>
+          Provider.of<CharacterStore>(context, listen: false)
+              .removeCharacter(character),
+      key: ValueKey(character.id), // Unique key for each character
+      child: Card(
+        child: ListTile(
+          leading: Hero(
+            tag: character.id.toString(),
+            child: SvgPicture.asset(
+              'assets/images/vocations/${character.vocation.image}',
+              height: 110,
+            ),
+          ),
+          trailing: const Icon(Icons.arrow_forward_ios),
+          title: Text(character.name),
+          subtitle: Text(character.vocation.title),
+          onTap: () => _navigateToProfileScreen(context, character),
         ),
-        trailing: const Icon(Icons.arrow_forward_ios),
-        title: Text(character.name),
-        subtitle: Text(character.vocation.title),
-        onTap: () => _navigateToProfileScreen(context, character),
       ),
     );
   }
