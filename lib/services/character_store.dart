@@ -6,19 +6,21 @@ class CharacterStore extends ChangeNotifier {
   final List<Character> _characters = [];
   List<Character> get characters => List.unmodifiable(_characters);
 
+  final firestoreService = FirestoreService.instance;
+
   Future<void> addCharacter(Character character) async {
-    await FirestoreService.addCharacter(character);
+    await firestoreService.addCharacter(character);
     _characters.add(character);
     notifyListeners();
   }
 
   Future<void> saveCharacter(Character character) async {
-    await FirestoreService.updateCharacter(character);
+    await firestoreService.updateCharacter(character);
   }
 
   Future<void> removeCharacter(Character character) async {
     _characters.removeWhere((c) => character.id == c.id);
-    await FirestoreService.deleteCharacter(character);
+    await firestoreService.deleteCharacter(character.id);
     notifyListeners();
   }
 
@@ -39,8 +41,9 @@ class CharacterStore extends ChangeNotifier {
 
   Future<void> fetchCharactersOnce() async {
     if (_characters.isEmpty) {
-      final snapshot = await FirestoreService.getCharacterOnce();
-      _characters.addAll(snapshot.docs.map((doc) => doc.data()).toList());
+      final List<Character> getAllCharacters =
+          await firestoreService.getAllCharacters();
+      _characters.addAll(getAllCharacters);
       notifyListeners();
     }
   }

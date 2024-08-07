@@ -14,7 +14,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   try {
-    FirestoreService.enablePersistence();
+    FirestoreService.instance.enablePersistence();
   } catch (e) {
     if (kDebugMode) {
       print('Error enabling persistence: $e');

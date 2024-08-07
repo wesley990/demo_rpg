@@ -4,43 +4,45 @@ import 'package:demo_rpg/models/vocation.dart';
 import 'package:flutter/foundation.dart';
 
 class FirestoreService {
-  static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  FirestoreService._();
+  static final FirestoreService instance = FirestoreService._();
 
-  static final charactersRef =
-      _firestore.collection('characters').withConverter<Character>(
-            fromFirestore: Character.fromFirestore,
-            toFirestore: (Character c, _) => c.toFirestore(),
-          );
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  late final CollectionReference<Character> charactersRef;
+
+  FirestoreService() {
+    charactersRef =
+        _firestore.collection('characters').withConverter<Character>(
+              fromFirestore: Character.fromFirestore,
+              toFirestore: (Character c, _) => c.toFirestore(),
+            );
+  }
 
   // CRUD operations
-  static Future<void> addCharacter(Character character) {
-    return handleFirestoreError(() async {
-      // await charactersRef.add(character);
-      await charactersRef
-          .doc(character.id)
-          .set(character); // since we use uuid v4 as id
+  Future<void> addCharacter(Character character) {
+    return _handleFirestoreError(() async {
+      await charactersRef.doc(character.id).set(character);
     });
   }
 
-  static Future<Character?> getCharacter(String id) async {
-    return handleFirestoreError(() async {
+  Future<Character?> getCharacter(String id) async {
+    return _handleFirestoreError(() async {
       final doc = await charactersRef.doc(id).get();
       return doc.data();
     });
   }
 
-  static Future<QuerySnapshot<Character>> getCharacterOnce() {
-    return handleFirestoreError(() async {
-      return await charactersRef.get();
+  Future<List<Character>> getAllCharacters() {
+    return _handleFirestoreError(() async {
+      final snapshot = await charactersRef.get();
+      return snapshot.docs.map((doc) => doc.data()).toList();
     });
   }
 
-  static Future<void> updateCharacter(Character character) {
-    return handleFirestoreError(() async {
-      await charactersRef
-          .doc(character.id)
-          // .set(character, SetOptions(merge: true));
-          .update({
+  Future<void> updateCharacter(Character character) {
+    return _handleFirestoreError(() async {
+      await charactersRef.doc(character.id).update({
         'stats': character.statsAsMap,
         'points': character.points,
         'isFavorite': character.isFavorite,
@@ -49,22 +51,22 @@ class FirestoreService {
     });
   }
 
-  static Future<void> deleteCharacter(Character character) {
-    return handleFirestoreError(() async {
-      await charactersRef.doc(character.id).delete();
+  Future<void> deleteCharacter(String characterId) {
+    return _handleFirestoreError(() async {
+      await charactersRef.doc(characterId).delete();
     });
   }
 
   // Query operations
-  static Stream<List<Character>> getCharactersByVocation(Vocation vocation) {
+  Stream<List<Character>> getCharactersByVocation(Vocation vocation) {
     return charactersRef
         .where('vocation', isEqualTo: vocation.toString())
         .snapshots()
         .map((snapshot) => snapshot.docs.map((doc) => doc.data()).toList());
   }
 
-  static Future<List<Character>> getFavoriteCharacters() async {
-    return handleFirestoreError(() async {
+  Future<List<Character>> getFavoriteCharacters() async {
+    return _handleFirestoreError(() async {
       final querySnapshot =
           await charactersRef.where('isFavorite', isEqualTo: true).get();
       return querySnapshot.docs.map((doc) => doc.data()).toList();
@@ -72,8 +74,8 @@ class FirestoreService {
   }
 
   // Batch operations
-  static Future<void> batchUpdateCharacters(List<Character> characters) {
-    return handleFirestoreError(() async {
+  Future<void> batchUpdateCharacters(List<Character> characters) {
+    return _handleFirestoreError(() async {
       final batch = _firestore.batch();
       for (var character in characters) {
         batch.set(charactersRef.doc(character.id), character,
@@ -84,9 +86,9 @@ class FirestoreService {
   }
 
   // Transaction example
-  static Future<void> transferSkill(
+  Future<void> transferSkill(
       String fromCharacterId, String toCharacterId, String skillId) {
-    return handleFirestoreError(() async {
+    return _handleFirestoreError(() async {
       await _firestore.runTransaction((transaction) async {
         final fromCharacterDoc = charactersRef.doc(fromCharacterId);
         final toCharacterDoc = charactersRef.doc(toCharacterId);
@@ -111,11 +113,12 @@ class FirestoreService {
   }
 
   // Offline persistence
-  static void enablePersistence() {
+  void enablePersistence() {
     try {
       _firestore.settings = const Settings(
-          persistenceEnabled: true,
-          cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED);
+        persistenceEnabled: true,
+        cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
+      );
       if (kDebugMode) {
         print('Firestore persistence enabled');
       }
@@ -123,20 +126,19 @@ class FirestoreService {
       if (kDebugMode) {
         print('Error enabling Firestore persistence: $e');
       }
-      // You might want to set some flag or notify the user here
+      // Consider implementing a more robust error handling mechanism
     }
   }
 
   // Error handling
-  static Future<T> handleFirestoreError<T>(
-      Future<T> Function() operation) async {
+  Future<T> _handleFirestoreError<T>(Future<T> Function() operation) async {
     try {
       return await operation();
     } on FirebaseException catch (e) {
       if (kDebugMode) {
         print('Firestore error: ${e.code} - ${e.message}');
       }
-      // You could also use a more sophisticated error handling mechanism here
+      // Consider implementing a more sophisticated error handling mechanism
       rethrow;
     }
   }
