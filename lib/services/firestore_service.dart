@@ -4,14 +4,16 @@ import 'package:demo_rpg/models/vocation.dart';
 import 'package:flutter/foundation.dart';
 
 class FirestoreService {
-  FirestoreService._();
+  FirestoreService._() {
+    _initializeFirestore();
+  }
   static final FirestoreService instance = FirestoreService._();
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   late final CollectionReference<Character> charactersRef;
 
-  FirestoreService() {
+  void _initializeFirestore() {
     charactersRef =
         _firestore.collection('characters').withConverter<Character>(
               fromFirestore: Character.fromFirestore,
