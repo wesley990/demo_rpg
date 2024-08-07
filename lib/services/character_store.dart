@@ -18,8 +18,9 @@ class CharacterStore extends ChangeNotifier {
     return;
   }
 
-  void removeCharacter(String id) {
-    _characters.removeWhere((character) => character.id == id);
+  void removeCharacter(Character character) async {
+    _characters.removeWhere((c) => character.id == c.id);
+    await FirestoreService.deleteCharacter(character);
     notifyListeners();
   }
 
